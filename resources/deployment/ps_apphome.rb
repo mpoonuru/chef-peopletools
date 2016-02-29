@@ -63,7 +63,7 @@ action :deploy do
         db_type = 'DBX'
       else
         db_type = nil
-        fail 'Invalid db_platform'
+        raise 'Invalid db_platform'
       end
 
       # move db_type files and folders

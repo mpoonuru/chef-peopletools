@@ -1,6 +1,6 @@
 # directories
 ['/opt/oracle/psft/pt',
-  '/opt/oracle/psft/pt/ps_home8.55.01'
+ '/opt/oracle/psft/pt/ps_home8.55.01'
 ].each do |d|
   describe file(d) do
     it { should be_directory }

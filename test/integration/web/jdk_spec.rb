@@ -1,7 +1,7 @@
 # directories
 ['/opt/oracle/psft/pt',
-  '/opt/oracle/psft/pt/jdk1.7.0_91',
-  '/opt/oracle/psft/pt/jdk1.7.0_91/bin'
+ '/opt/oracle/psft/pt/jdk1.7.0_91',
+ '/opt/oracle/psft/pt/jdk1.7.0_91/bin'
 ].each do |d|
   describe file(d) do
     it { should be_directory }
