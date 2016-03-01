@@ -40,6 +40,7 @@ action :create do
   # inventory pointer file
   template ::File.join(inventory_location, 'oraInst.loc') do
     source 'deployment/inventory/oraInst.loc.erb'
+    cookbook 'peopletools'
     mode 0770
     owner inventory_user
     group inventory_group
@@ -53,6 +54,7 @@ action :create do
   # inventory file
   template ::File.join(inventory_location, 'ContentsXML', 'inventory.xml') do
     source 'deployment/inventory/inventory.xml.erb'
+    cookbook 'peopletools'
     mode 0770
     owner inventory_user
     group inventory_group
