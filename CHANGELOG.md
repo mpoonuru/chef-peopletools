@@ -1,6 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+0.1.3 (2016-03-01)
+------------------
+- Richard Lock
+- Changed deployment resources property from archive_file to archive_url.
+
 0.1.2 (2016-03-01)
 ------------------
 - Richard Lock
