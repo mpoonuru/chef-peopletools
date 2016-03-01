@@ -19,7 +19,7 @@
 
 resource_name :peopletools_weblogic
 default_action :deploy
-property :archive_file, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['weblogic']['archive_file'])
+property :archive_url, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['weblogic']['archive_file'])
 property :deploy_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['weblogic']['dir'])
 property :deploy_user, String, default: node['peopletools']['user']['psft_install']['name']
 property :deploy_group, String, default: node['peopletools']['group']['oracle_install']['name']
@@ -42,7 +42,7 @@ action :deploy do
   # extract weblogic archive
   ark ::File.basename(tmp_dir) do
     path ::File.dirname(tmp_dir)
-    url archive_file
+    url archive_url
     owner deploy_user
     group deploy_group
     mode 0777

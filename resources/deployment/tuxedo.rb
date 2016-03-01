@@ -19,7 +19,7 @@
 
 resource_name :peopletools_tuxedo
 default_action :deploy
-property :archive_file, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['tuxedo']['archive_file'])
+property :archive_url, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['tuxedo']['archive_file'])
 property :deploy_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['tuxedo']['dir'])
 property :deploy_user, String, default: node['peopletools']['user']['psft_install']['name']
 property :deploy_group, String, default: node['peopletools']['group']['oracle_install']['name']
@@ -41,7 +41,7 @@ action :deploy do
   # extract tuxedo archive
   ark ::File.basename(deploy_location) do
     path ::File.dirname(deploy_location)
-    url archive_file
+    url archive_url
     owner deploy_user
     group deploy_group
     strip_components 0

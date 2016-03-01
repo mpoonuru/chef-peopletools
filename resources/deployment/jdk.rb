@@ -19,7 +19,7 @@
 
 resource_name :peopletools_jdk
 default_action :deploy
-property :archive_file, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['jdk']['archive_file'])
+property :archive_url, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['jdk']['archive_file'])
 property :deploy_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], "#{node['peopletools']['jdk']['dir']}#{node['peopletools']['jdk']['version']}")
 property :deploy_user, String, default: node['peopletools']['user']['psft_install']['name']
 property :deploy_group, String, default: node['peopletools']['group']['oracle_install']['name']
@@ -29,7 +29,7 @@ action :deploy do
   # extract jdk archive
   ark ::File.basename(deploy_location) do
     path ::File.dirname(deploy_location)
-    url archive_file
+    url archive_url
     owner deploy_user
     group deploy_group
     strip_components 0
