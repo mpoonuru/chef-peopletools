@@ -1,6 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+0.3.1 (2016-03-03)
+------------------
+- Richard Lock
+- Updated deploy user/group for ps_apphome to match Oracle default.
+
 0.3.0 (2016-03-03)
 ------------------
 - Richard Lock

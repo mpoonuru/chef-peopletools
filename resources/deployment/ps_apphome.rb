@@ -22,8 +22,8 @@ default_action :deploy
 property :archive_url, String, default: ::File.join(node['peopletools']['ps_apphome']['archive_repo'], node['peopletools']['ps_apphome']['archive_file'])
 property :db_platform, equal_to: %w(ORACLE DB2ODBC DB2UNIX), default: node['peopletools']['db_platform']
 property :deploy_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['ps_apphome']['dir'])
-property :deploy_user, String, default: node['peopletools']['user']['psft_install']['name']
-property :deploy_group, String, default: node['peopletools']['group']['oracle_install']['name']
+property :deploy_user, String, default: node['peopletools']['user']['psft_app_install']['name']
+property :deploy_group, String, default: node['peopletools']['group']['psft_app_install']['name']
 property :extract_only, [TrueClass, FalseClass], default: node['peopletools']['ps_apphome']['extract_only']
 property :version, String, default: node['peopletools']['ps_apphome']['version']
 
