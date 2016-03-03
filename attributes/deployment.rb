@@ -43,6 +43,7 @@ default['peopletools']['oracle_client']['version'] = '12.1.0.2' # oracle_client 
 
 # ps_apphome
 default['peopletools']['ps_apphome']['archive_file'] = '' # ps_apphome archive file
+default['peopletools']['ps_apphome']['archive_repo'] = '' # ps_apphome archive repo (in case this is different from the peopletools archive repo)
 default['peopletools']['ps_apphome']['dir'] = 'ps_app_home' # ps_apphome directory
 default['peopletools']['ps_apphome']['extract_only'] = false # ps_apphome extract archive only
 default['peopletools']['ps_apphome']['version'] = '' # ps_apphome version

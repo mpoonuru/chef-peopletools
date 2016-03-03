@@ -1,6 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+0.3.0 (2016-03-03)
+------------------
+- Richard Lock
+- Added attribute to allow ps_apphome archive_repo to be different from the peopletools archive_repo and updated Readme.
+
 0.2.0 (2016-03-03)
 ------------------
 - Richard Lock
