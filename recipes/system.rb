@@ -92,3 +92,19 @@ directory ::File.join(node['peopletools']['psft']['path'], node['peopletools']['
   mode 0755
   recursive true
 end
+
+# limits
+[node['peopletools']['group']['psft_runtime']['name'],
+ node['peopletools']['group']['psft_app_install']['name']
+].each do |g|
+  limits_config g do
+    limits_array = []
+    node['peopletools']['limits']['group'].each do |t, a|
+      a.each do |i, v|
+        limits_array.push(domain: g, type: t, item: i, value: v)
+      end
+    end
+    limits limits_array
+    only_if { node['peopletools']['limits']['group'].respond_to?('each') }
+  end
+end

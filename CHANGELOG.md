@@ -1,6 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+0.2.0 (2016-03-03)
+------------------
+- Richard Lock
+- Added limits attributes and configuration for psft_runtime and psft_app_install groups.
+
 0.1.3 (2016-03-01)
 ------------------
 - Richard Lock

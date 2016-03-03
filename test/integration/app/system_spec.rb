@@ -37,3 +37,19 @@ end
     its(:home) { should eq "/home/#{u}" }
   end
 end
+
+# limits
+%w(psft appinst).each do |g|
+  describe file("/etc/security/limits.d/#{g}.conf") do
+    its(:content) { should match(/#{g} hard nofile\s+65536/) }
+    its(:content) { should match(/#{g} soft nofile\s+65536/) }
+    its(:content) { should match(/#{g} hard nproc\s+65536/) }
+    its(:content) { should match(/#{g} soft nproc\s+65536/) }
+    its(:content) { should match(/#{g} hard core\s+unlimited/) }
+    its(:content) { should match(/#{g} soft core\s+unlimited/) }
+    its(:content) { should match(/#{g} hard memlock\s+50000/) }
+    its(:content) { should match(/#{g} soft memlock\s+50000/) }
+    its(:content) { should match(/#{g} hard stack\s+102400/) }
+    its(:content) { should match(/#{g} soft stack\s+102400/) }
+  end
+end

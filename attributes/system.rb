@@ -55,3 +55,23 @@ default['sysctl']['params']['net']['ipv4']['tcp_keepalive_time'] = 90
 default['sysctl']['params']['net']['ipv4']['tcp_timestamps'] = 1
 default['sysctl']['params']['net']['ipv4']['tcp_window_scaling'] = 1
 default['sysctl']['params']['net']['ipv4']['ip_local_port_range'] = '10000 65500'
+
+# limits
+default['peopletools']['limits']['group']['hard']['nofile'] = 65_536
+default['peopletools']['limits']['group']['soft']['nofile'] = 65_536
+default['peopletools']['limits']['group']['hard']['nproc'] = 65_536
+default['peopletools']['limits']['group']['soft']['nproc'] = 65_536
+default['peopletools']['limits']['group']['hard']['core'] = 'unlimited'
+default['peopletools']['limits']['group']['soft']['core'] = 'unlimited'
+default['peopletools']['limits']['group']['hard']['memlock'] = 500_000
+default['peopletools']['limits']['group']['soft']['memlock'] = 500_000
+default['peopletools']['limits']['group']['hard']['stack'] = 102_400
+default['peopletools']['limits']['group']['soft']['stack'] = 102_400
+default['peopletools']['limits']['user']['hard']['nofile'] = 131_072
+default['peopletools']['limits']['user']['soft']['nofile'] = 131_072
+default['peopletools']['limits']['user']['hard']['nproc'] = 131_072
+default['peopletools']['limits']['user']['soft']['nproc'] = 131_072
+default['peopletools']['limits']['user']['hard']['core'] = 'unlimited'
+default['peopletools']['limits']['user']['soft']['core'] = 'unlimited'
+default['peopletools']['limits']['user']['hard']['memlock'] = 500_000
+default['peopletools']['limits']['user']['soft']['memlock'] = 500_000
