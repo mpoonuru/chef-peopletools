@@ -43,19 +43,6 @@ default['peopletools']['user']['psft_app_install']['password'] = '0radmin'
 default['peopletools']['user']['oracle']['name'] = 'oracle2'
 default['peopletools']['user']['oracle']['password'] = 'oracle'
 
-# sysctl parameters
-default['sysctl']['params']['kernel']['msgmnb'] = 65_538
-default['sysctl']['params']['kernel']['msgmni'] = 1024
-default['sysctl']['params']['kernel']['msgmax'] = 65_536
-default['sysctl']['params']['kernel']['shmmax'] = 68_719_476_736
-default['sysctl']['params']['kernel']['shmall'] = 4_294_967_296
-default['sysctl']['params']['kernel']['shmmni'] = 4096
-default['sysctl']['params']['kernel']['core_uses_pid'] = 1
-default['sysctl']['params']['net']['ipv4']['tcp_keepalive_time'] = 90
-default['sysctl']['params']['net']['ipv4']['tcp_timestamps'] = 1
-default['sysctl']['params']['net']['ipv4']['tcp_window_scaling'] = 1
-default['sysctl']['params']['net']['ipv4']['ip_local_port_range'] = '10000 65500'
-
 # limits
 default['peopletools']['limits']['group']['hard']['nofile'] = 65_536
 default['peopletools']['limits']['group']['soft']['nofile'] = 65_536

@@ -1,6 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+0.3.2 (2016-04-05)
+------------------
+- Richard Lock
+- Moved sysctl attributes from attributes file to system recipe to prevent issues with wrapper cookbooks.
+
 0.3.1 (2016-03-03)
 ------------------
 - Richard Lock
