@@ -1,11 +1,11 @@
 # kernel parameters
-{ 'kernel.msgmnb' => 65_538,
+{ 'kernel.core_uses_pid' => 1,
+  'kernel.msgmnb' => 65_538,
   'kernel.msgmni' => 1024,
   'kernel.msgmax' => 65_536,
   'kernel.shmmax' => 68_719_476_736,
   'kernel.shmall' => 4_294_967_296,
   'kernel.shmmni' => 4096,
-  'kernel.core_uses_pid' => 1,
   'net.ipv4.tcp_keepalive_time' => 90,
   'net.ipv4.tcp_timestamps' => 1,
   'net.ipv4.tcp_window_scaling' => 1
