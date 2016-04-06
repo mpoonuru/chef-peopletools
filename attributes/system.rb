@@ -40,7 +40,7 @@ default['peopletools']['user']['psft_app_install']['name'] = 'psadm3'
 default['peopletools']['user']['psft_app_install']['password'] = '0radmin'
 
 # oracle user
-default['peopletools']['user']['oracle']['name'] = 'oracle2'
+default['peopletools']['user']['oracle']['name'] = 'oracle'
 default['peopletools']['user']['oracle']['password'] = 'oracle'
 
 # limits

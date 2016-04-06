@@ -30,7 +30,7 @@ end
 { 'psadm1' => 'oinstall',
   'psadm2' => 'oinstall',
   'psadm3' => 'appinst',
-  'oracle2' => 'oinstall'
+  'oracle' => 'oinstall'
 }.each do |u, g|
   describe user(u) do
     its(:group) { should eq g }
