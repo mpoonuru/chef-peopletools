@@ -1,6 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+0.3.3 (2016-04-06)
+------------------
+- Richard Lock
+- Renamed default oracle user from oracle2 to oracle.
+
 0.3.2 (2016-04-05)
 ------------------
 - Richard Lock
