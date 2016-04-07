@@ -20,7 +20,7 @@ Usage
 Include `peopletools` as a dependency in your cookbook's `metadata.rb`.
 
 ```
-depends 'peopletools', '= 0.3.3'
+depends 'peopletools', '= 0.3.4'
 ```
 
 Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure the default['peopletools']['archive_repo'] attribute to point to the repository location.  Use the recipes or resources to deploy and configure PeopleTools.

@@ -43,40 +43,18 @@ include_recipe 'sysctl::apply'
   end
 end
 
-# psft_install user
-user node['peopletools']['user']['psft_install']['name'] do
-  gid node['peopletools']['group']['oracle_install']['name']
-  home ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_install']['name'])
-  shell node['peopletools']['user']['shell']
-  supports manage_home: true
-  password node['peopletools']['user']['psft_install']['password']
-end
-
-# psft_runtime user
-user node['peopletools']['user']['psft_runtime']['name'] do
-  gid node['peopletools']['group']['oracle_install']['name']
-  home ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'])
-  shell node['peopletools']['user']['shell']
-  supports manage_home: true
-  password node['peopletools']['user']['psft_runtime']['password']
-end
-
-# psft_app_install user
-user node['peopletools']['user']['psft_app_install']['name'] do
-  gid node['peopletools']['group']['psft_app_install']['name']
-  home ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_app_install']['name'])
-  shell node['peopletools']['user']['shell']
-  supports manage_home: true
-  password node['peopletools']['user']['psft_app_install']['password']
-end
-
-# oracle user
-user node['peopletools']['user']['oracle']['name'] do
-  gid node['peopletools']['group']['oracle_install']['name']
-  home ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['oracle']['name'])
-  shell node['peopletools']['user']['shell']
-  supports manage_home: true
-  password node['peopletools']['user']['oracle']['password']
+# users
+{ node['peopletools']['user']['psft_install']['name'] => node['peopletools']['group']['oracle_install']['name'],
+  node['peopletools']['user']['psft_runtime']['name'] => node['peopletools']['group']['oracle_install']['name'],
+  node['peopletools']['user']['psft_app_install']['name'] => node['peopletools']['group']['psft_app_install']['name'],
+  node['peopletools']['user']['oracle']['name'] => node['peopletools']['group']['oracle_install']['name']
+}.each do |n, g|
+  user n do
+    gid g
+    home ::File.join(node['peopletools']['user']['home_dir'], n)
+    shell node['peopletools']['user']['shell']
+    supports manage_home: true
+  end
 end
 
 # psft_runtime group membership
@@ -96,14 +74,6 @@ group node['peopletools']['group']['oracle_runtime']['name'] do
   action :create
 end
 
-# pt directory
-directory ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir']) do
-  owner node['peopletools']['user']['psft_install']['name']
-  group node['peopletools']['group']['oracle_install']['name']
-  mode 0755
-  recursive true
-end
-
 # limits
 [node['peopletools']['group']['psft_runtime']['name'],
  node['peopletools']['group']['psft_app_install']['name']
@@ -118,4 +88,12 @@ end
     limits limits_array
     only_if { node['peopletools']['limits']['group'].respond_to?('each') }
   end
+end
+
+# pt directory
+directory ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir']) do
+  owner node['peopletools']['user']['psft_install']['name']
+  group node['peopletools']['group']['oracle_install']['name']
+  mode 0755
+  recursive true
 end

@@ -1,6 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+0.3.4 (2016-04-07)
+------------------
+- Richard Lock
+- Removed setting of password for users; tidied up system recipe/attributes.
+
 0.3.3 (2016-04-06)
 ------------------
 - Richard Lock
