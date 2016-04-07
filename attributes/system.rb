@@ -27,21 +27,11 @@ default['peopletools']['group']['oracle_runtime']['name'] = 'dba'
 default['peopletools']['user']['home_dir'] = '/home'
 default['peopletools']['user']['shell'] = '/bin/bash'
 
-# psft_install user
+# users
 default['peopletools']['user']['psft_install']['name'] = 'psadm1'
-default['peopletools']['user']['psft_install']['password'] = '0radmin'
-
-# psft_runtime user
 default['peopletools']['user']['psft_runtime']['name'] = 'psadm2'
-default['peopletools']['user']['psft_runtime']['password'] = '0radmin'
-
-# psft_app_install user
 default['peopletools']['user']['psft_app_install']['name'] = 'psadm3'
-default['peopletools']['user']['psft_app_install']['password'] = '0radmin'
-
-# oracle user
 default['peopletools']['user']['oracle']['name'] = 'oracle'
-default['peopletools']['user']['oracle']['password'] = 'oracle'
 
 # limits
 default['peopletools']['limits']['group']['hard']['nofile'] = 65_536
