@@ -18,13 +18,13 @@ suites:
     attributes:
       peopletools:
         archive_repo: <%= ENV['PEOPLETOOLS_ARCHIVE_REPO'] %>
-        ps_apphome:
-          archive_repo: <%= ENV['PEOPLETOOLS_PS_APPHOME_ARCHIVE_REPO'] %>
+        ps_app_home:
+          archive_repo: <%= ENV['PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO'] %>
   - name: web
     run_list:
       - recipe[peopletools::web]
     attributes:
       peopletools:
         archive_repo: <%= ENV['PEOPLETOOLS_ARCHIVE_REPO'] %>
-        ps_apphome:
-          archive_repo: <%= ENV['PEOPLETOOLS_PS_APPHOME_ARCHIVE_REPO'] %>
+        ps_app_home:
+          archive_repo: <%= ENV['PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO'] %>
