@@ -1,6 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+1.0.1 (2016-04-08)
+------------------
+- Richard Lock
+- Modified guard for tuxedo to avoid install order issues with weblogic.
+
 1.0.0 (2016-04-08)
 ------------------
 - Richard Lock

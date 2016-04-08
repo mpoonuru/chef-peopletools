@@ -45,7 +45,7 @@ action :deploy do
     owner deploy_user
     group deploy_group
     strip_components 0
-    not_if { ::File.exist?(deploy_location) }
+    not_if { ::File.exist?(::File.join(deploy_location, 'tuxedo')) }
     notifies :run, "ruby_block[chmod_R_#{deploy_location}]", :immediately
     notifies :run, 'execute[tuxedo_runInstaller]', :immediately
     action :put
