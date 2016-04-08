@@ -1,6 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+1.0.0 (2016-04-08)
+------------------
+- Richard Lock
+- Renamed ps_apphome resource to ps_app_home to match Oracle references.
+
 0.3.4 (2016-04-07)
 ------------------
 - Richard Lock
