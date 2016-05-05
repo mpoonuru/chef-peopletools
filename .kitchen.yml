@@ -9,7 +9,7 @@ verifier:
   name: inspec
 
 platforms:
-  - name: centos-6.7
+  - name: centos-7.2
 
 suites:
   - name: app
@@ -18,6 +18,8 @@ suites:
     attributes:
       peopletools:
         archive_repo: <%= ENV['PEOPLETOOLS_ARCHIVE_REPO'] %>
+        db_host: localhost
+        db_name: KITCHEN
         ps_app_home:
           archive_repo: <%= ENV['PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO'] %>
   - name: web

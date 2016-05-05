@@ -34,7 +34,7 @@ end
 
 # weblogic .product.properties
 describe file('/opt/oracle/psft/pt/bea/wlserver/.product.properties') do
-  its(:content) { should match(%r{JAVA_HOME=\/opt\/oracle\/psft\/pt\/jdk1.7.0_91}) }
+  its(:content) { should match(%r{JAVA_HOME=\/opt\/oracle\/psft\/pt\/jdk1.7.0_95}) }
   its(:content) { should match(%r{PLATFORMHOME=\/opt\/oracle\/psft\/pt\/bea\/wlserver}) }
 end
 

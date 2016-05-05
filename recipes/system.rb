@@ -18,17 +18,17 @@
 #
 
 # sysctl parameters
-default['sysctl']['params']['kernel']['core_uses_pid'] = 1
-default['sysctl']['params']['kernel']['msgmnb'] = 65_538
-default['sysctl']['params']['kernel']['msgmni'] = 1024
-default['sysctl']['params']['kernel']['msgmax'] = 65_536
-default['sysctl']['params']['kernel']['shmmax'] = 68_719_476_736
-default['sysctl']['params']['kernel']['shmall'] = 4_294_967_296
-default['sysctl']['params']['kernel']['shmmni'] = 4096
-default['sysctl']['params']['net']['ipv4']['ip_local_port_range'] = '10000 65500'
-default['sysctl']['params']['net']['ipv4']['tcp_keepalive_time'] = 90
-default['sysctl']['params']['net']['ipv4']['tcp_timestamps'] = 1
-default['sysctl']['params']['net']['ipv4']['tcp_window_scaling'] = 1
+node.default['sysctl']['params']['kernel']['core_uses_pid'] = 1
+node.default['sysctl']['params']['kernel']['msgmnb'] = 65_538
+node.default['sysctl']['params']['kernel']['msgmni'] = 1024
+node.default['sysctl']['params']['kernel']['msgmax'] = 65_536
+node.default['sysctl']['params']['kernel']['shmmax'] = 68_719_476_736
+node.default['sysctl']['params']['kernel']['shmall'] = 4_294_967_296
+node.default['sysctl']['params']['kernel']['shmmni'] = 4096
+node.default['sysctl']['params']['net']['ipv4']['ip_local_port_range'] = '10000 65500'
+node.default['sysctl']['params']['net']['ipv4']['tcp_keepalive_time'] = 90
+node.default['sysctl']['params']['net']['ipv4']['tcp_timestamps'] = 1
+node.default['sysctl']['params']['net']['ipv4']['tcp_window_scaling'] = 1
 include_recipe 'sysctl::apply'
 
 # groups
