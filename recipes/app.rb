@@ -23,6 +23,11 @@ include_recipe 'peopletools::system'
 # oracle_client
 peopletools_oracle_client node['peopletools']['oracle_client']['version']
 
+# tnsnames
+peopletools_tnsnames ::File.join(
+  node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['oracle_client']['dir'], node['peopletools']['oracle_client']['version'], 'network', 'admin', 'tnsnames.ora'
+)
+
 # ps_home
 peopletools_ps_home node['peopletools']['ps_home']['version']
 

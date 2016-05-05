@@ -30,9 +30,9 @@ default['peopletools']['inventory']['minimum_ver'] = '2.1.0.6.0' # inventory min
 default['peopletools']['inventory']['saved_with'] = '13.2.0.0.0' # inventory saved with version
 
 # jdk
-default['peopletools']['jdk']['archive_file'] = 'pt-jdk1.7.0_91.tgz' # jdk archive file
+default['peopletools']['jdk']['archive_file'] = 'pt-jdk1.7.0_95.tgz' # jdk archive file
 default['peopletools']['jdk']['dir'] = 'jdk' # jdk directory prefix
-default['peopletools']['jdk']['version'] = '1.7.0_91' # jdk version
+default['peopletools']['jdk']['version'] = '1.7.0_95' # jdk version
 
 # oracle_client
 default['peopletools']['oracle_client']['archive_file'] = 'pt-oracleclient-12.1.0.2.tgz' # oracle_client archive file
@@ -49,11 +49,11 @@ default['peopletools']['ps_app_home']['extract_only'] = false # ps_app_home extr
 default['peopletools']['ps_app_home']['version'] = '' # ps_app_home version
 
 # ps_home
-default['peopletools']['ps_home']['archive_file'] = 'pt-pshome8.55.01.tgz' # ps_home archive file
+default['peopletools']['ps_home']['archive_file'] = 'pt-pshome8.55.05.tgz' # ps_home archive file
 default['peopletools']['ps_home']['dir'] = 'ps_home' # ps_home directory
 default['peopletools']['ps_home']['extract_only'] = false # ps_home extract archive only
 default['peopletools']['ps_home']['unicode_db'] = true # ps_home unicode database
-default['peopletools']['ps_home']['version'] = '8.55.01' # ps_home version
+default['peopletools']['ps_home']['version'] = '8.55.05' # ps_home version
 
 # tuxedo
 default['peopletools']['tuxedo']['archive_file'] = 'pt-tuxedo12.1.3.0.0.tgz' # tuxedo archive file
