@@ -27,15 +27,14 @@ property :db_service_name, String, default: node['peopletools']['db_name']
 property :dir, String, default: ::File.join(
   node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['oracle_client']['dir'], node['peopletools']['oracle_client']['version'], 'network', 'admin'
 )
-property :file_name, String, default: node['peopletools']['tnsnames']['file_name']
 property :group, String, default: node['peopletools']['group']['oracle_install']['name']
-property :mode, String, default: node['peopletools']['tnsnames']['mode']
+property :mode, String, default: '0644'
 property :owner, String, default: node['peopletools']['user']['oracle']['name']
 property :server, equal_to: %w(DEDICATED SHARED), default: node['peopletools']['tnsnames']['server']
 
 action :create do
   # tnsnames.ora file
-  template ::File.join(dir, file_name) do
+  template ::File.join(dir, 'tnsnames.ora') do
     source 'config/tnsnames/tnsnames.ora.erb'
     cookbook 'peopletools'
     mode new_resource.mode

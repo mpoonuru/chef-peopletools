@@ -28,3 +28,6 @@ peopletools_jdk node['peopletools']['jdk']['version']
 
 # weblogic
 peopletools_weblogic node['peopletools']['weblogic']['version']
+
+# .bashrc
+peopletools_bashrc ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'])

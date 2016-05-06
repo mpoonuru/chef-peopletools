@@ -20,7 +20,7 @@ Usage
 Include `peopletools` as a dependency in your cookbook's `metadata.rb`.
 
 ```
-depends 'peopletools', '~> 1.1'
+depends 'peopletools', '~> 1.2'
 ```
 
 Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure the default['peopletools']['archive_repo'] attribute to point to the repository location.  Use the recipes or resources to deploy and configure PeopleTools.
@@ -44,7 +44,7 @@ Resources
 Config:
 
 #### peopletools_tnsnames
-Resource to deploy tnsnames.ora.
+Resource to configure tnsnames.ora.
 
 Deployment:
 
@@ -69,9 +69,14 @@ Resource to deploy Oracle Tuxedo.
 #### peopletools_weblogic
 Resource to deploy Oracle WebLogic.
 
+Setup:
+
+#### peopletools_bashrc
+Resource to configure .bashrc.
+
 Testing
 -------
-.kitchen.yml is configured to use vagrant with centos-6.7.  Two environment variables must be configured to set the `['peopletools']['archive_repo']` and `['peopletools']['ps_app_home']['archive_repo']` attribute values.  These should be set to the location of the repositories which hold the archive files for PeopleTools and ps_app_home.  They can be different locations if required, and should not contain a trailing forward slash.  E.g.
+.kitchen.yml is configured to use vagrant with centos-7.2.  Two environment variables must be configured to set the `['peopletools']['archive_repo']` and `['peopletools']['ps_app_home']['archive_repo']` attribute values.  These should be set to the location of the repositories which hold the archive files for PeopleTools and ps_app_home.  They can be different locations if required, and should not contain a trailing forward slash.  E.g.
 
 ```
 PEOPLETOOLS_ARCHIVE_REPO=http://artifacts.local.org/artifactory/software/oracle/peoplesoft/peopletools/8.55.01

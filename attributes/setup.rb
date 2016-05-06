@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: peopletools
-# Attributes:: config
+# Attributes:: setup
 #
 # Copyright 2016 University of Derby
 #
@@ -17,11 +17,5 @@
 # limitations under the License.
 #
 
-# database
-default['peopletools']['db_host'] = '' # database host. Set this at environment, role, node, or cookbook level
-default['peopletools']['db_name'] = '' # database name. Set this at environment, role, node, or cookbook level
-default['peopletools']['db_port'] = '1521' # database port. Set this at environment, role, node, or cookbook level
-
-# tnsnames
-default['peopletools']['tnsnames']['db_protocol'] = 'TCP' # tnsnames database protocol
-default['peopletools']['tnsnames']['server'] = 'DEDICATED' # tnsnames server type
+# cobol
+default['peopletools']['cobol_dir'] = '/opt/microfocus/cobol' # cobol directory
