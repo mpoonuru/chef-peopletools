@@ -33,3 +33,6 @@ peopletools_ps_home node['peopletools']['ps_home']['version']
 
 # tuxedo
 peopletools_tuxedo node['peopletools']['tuxedo']['version']
+
+# .bashrc
+peopletools_bashrc ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'])

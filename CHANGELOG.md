@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+1.2.0 (2016-05-06)
+------------------
+- Added bashrc resource.
+
 1.1.0 (2016-05-05)
 ------------------
 - Added tnsnames resource.

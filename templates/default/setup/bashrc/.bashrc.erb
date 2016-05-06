@@ -1,0 +1,55 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+
+# User specific aliases and functions
+export _JAVA_OPTIONS=-Djava.security.egd=file:/dev/./urandom
+
+<% if @cobol_dir -%>
+export COBDIR=<%= @cobol_dir %>
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$COBDIR/lib
+export PATH=$PATH:$COBDIR/bin
+<% end -%>
+
+<% if @tns_file_dir -%>
+export TNS_ADMIN=<%= @tns_admin_dir %>
+<% end -%>
+<% if @oracle_home_dir -%>
+export ORACLE_HOME=<%= @oracle_home_dir %>
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
+export PATH=.:$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$ORACLE_HOME/perl/bin:$PATH
+<% end -%>
+<% if @db2_instance_user -%>
+. /home/<%= @db2_instance_user %>/sqllib/db2profile
+<% end -%>
+
+<% if @tuxedo_dir -%>
+if [ -d <%= @tuxedo_dir %> ]; then
+  export TUXDIR=<%= @tuxedo_dir %>
+  export PATH=$TUXDIR/bin:$PATH
+  export LD_LIBRARY_PATH=$TUXDIR/bin:$TUXDIR/lib:$LD_LIBRARY_PATH
+fi
+<% end -%>
+
+<% if @ps_home_dir -%>
+export PATH=<%= @ps_home_dir %>/appserv:<%= @ps_home_dir %>/setup:$PATH
+
+export LANG=C
+if [ -d <%= @ps_home_dir %> ]; then
+  CWD=$PWD
+  cd <%= @ps_home_dir %> && . psconfig.sh
+  cd $CWD
+fi
+<% end -%>
+<% if @ps_cfg_home_dir -%>
+export PS_CFG_HOME=<%= @ps_cfg_home_dir %>
+<% end -%>
+<% if @ps_app_home_dir -%>
+export PS_APP_HOME=<%= @ps_app_home_dir %>
+<% end -%>
+<% if @ps_cust_home_dir -%>
+export PS_CUST_HOME=<%= @ps_cust_home_dir %>
+<% end -%>
