@@ -21,13 +21,13 @@ resource_name :peopletools_bashrc
 default_action :create
 property :cobol_dir, String, default: node['peopletools']['cobol_dir']
 property :db2_instance_user, String
-property :dir, String, default: ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'])
 property :group, String, default: node['peopletools']['group']['oracle_install']['name']
 property :mode, String, default: '0644'
 property :oracle_home_dir, String, default: ::File.join(
   node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['oracle_client']['dir'], node['peopletools']['oracle_client']['version']
 )
 property :owner, String, default: node['peopletools']['user']['psft_runtime']['name']
+property :path, String, name_property: true
 property :ps_app_home_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['ps_app_home']['dir'])
 property :ps_cfg_home_dir, String, default: ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'])
 property :ps_cust_home_dir, String
@@ -39,7 +39,7 @@ property :tuxedo_dir, String, default: ::File.join(node['peopletools']['psft']['
 
 action :create do
   # tnsnames.ora file
-  template ::File.join(dir, '.bashrc') do
+  template ::File.join(path, '.bashrc') do
     source 'setup/bashrc/.bashrc.erb'
     cookbook 'peopletools'
     mode new_resource.mode

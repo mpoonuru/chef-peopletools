@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+1.2.1 (2016-05-06)
+------------------
+- Changed bashrc and tnsnames resources to use path as name property.
+
 1.2.0 (2016-05-06)
 ------------------
 - Added bashrc resource.
