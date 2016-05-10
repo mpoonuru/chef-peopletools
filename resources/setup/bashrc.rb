@@ -51,6 +51,7 @@ action :create do
       oracle_home_dir: oracle_home_dir,
       ps_app_home_dir: ps_app_home_dir,
       ps_cfg_home_dir: ps_cfg_home_dir,
+      ps_cust_home_dir: ps_cust_home_dir,
       ps_home_dir: ps_home_dir,
       tns_admin_dir: tns_admin_dir,
       tuxedo_dir: tuxedo_dir
