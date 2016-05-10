@@ -35,7 +35,7 @@ property :ps_home_dir, String, default: ::File.join(
   node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], "#{node['peopletools']['ps_home']['dir']}#{node['peopletools']['ps_home']['version']}"
 )
 property :tns_admin_dir, String
-property :tuxedo_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['tuxedo']['dir'], node['peopletools']['tuxedo']['version'])
+property :tuxedo_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['tuxedo']['dir'], "tuxedo#{node['peopletools']['tuxedo']['version']}")
 
 action :create do
   # tnsnames.ora file
