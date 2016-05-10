@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+1.2.4 (2016-05-11)
+------------------
+- Added additional_commands property to bashrc resource.
+
 1.2.3 (2016-05-10)
 ------------------
 - Added ps_cust_home_dir variable to bashrc template.
