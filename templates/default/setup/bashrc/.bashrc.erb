@@ -53,3 +53,10 @@ export PS_APP_HOME=<%= @ps_app_home_dir %>
 <% if @ps_cust_home_dir -%>
 export PS_CUST_HOME=<%= @ps_cust_home_dir %>
 <% end -%>
+
+# Additional commands
+<% if @additional_commands -%>
+<% @additional_commands.each do |c| -%>
+<%= c %>
+<% end -%>
+<% end -%>
