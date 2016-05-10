@@ -29,8 +29,8 @@ property :oracle_home_dir, String, default: ::File.join(
 property :owner, String, default: node['peopletools']['user']['psft_runtime']['name']
 property :path, String, name_property: true
 property :ps_app_home_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['ps_app_home']['dir'])
-property :ps_cfg_home_dir, String, default: ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'])
-property :ps_cust_home_dir, String
+property :ps_cfg_home_dir, String, default: lazy { path }
+property :ps_cust_home_dir, String, default: lazy { ::File.join(path, 'custom') }
 property :ps_home_dir, String, default: ::File.join(
   node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], "#{node['peopletools']['ps_home']['dir']}#{node['peopletools']['ps_home']['version']}"
 )

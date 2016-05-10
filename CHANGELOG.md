@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+1.2.2 (2016-05-10)
+------------------
+- Changed bashrc ps_cfg_home_dir and ps_cust_home_dir property defaults.
+
 1.2.1 (2016-05-06)
 ------------------
 - Changed bashrc and tnsnames resources to use path as name property.
