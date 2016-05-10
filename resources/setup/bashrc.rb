@@ -19,6 +19,7 @@
 
 resource_name :peopletools_bashrc
 default_action :create
+property :additional_commands, Array
 property :cobol_dir, String, default: node['peopletools']['cobol_dir']
 property :db2_instance_user, String
 property :group, String, default: node['peopletools']['group']['oracle_install']['name']
@@ -35,7 +36,7 @@ property :ps_home_dir, String, default: ::File.join(
   node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], "#{node['peopletools']['ps_home']['dir']}#{node['peopletools']['ps_home']['version']}"
 )
 property :tns_admin_dir, String
-property :tuxedo_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['tuxedo']['dir'], node['peopletools']['tuxedo']['version'])
+property :tuxedo_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['tuxedo']['dir'], "tuxedo#{node['peopletools']['tuxedo']['version']}")
 
 action :create do
   # tnsnames.ora file
@@ -46,6 +47,7 @@ action :create do
     owner new_resource.owner
     group new_resource.group
     variables(
+      additional_commands: additional_commands,
       cobol_dir: cobol_dir,
       db2_instance_user: db2_instance_user,
       oracle_home_dir: oracle_home_dir,
