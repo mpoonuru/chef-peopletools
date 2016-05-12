@@ -6,7 +6,7 @@ describe file('/home/psadm2/.bashrc') do
   its(:content) { should match(%r{export _JAVA_OPTIONS=-Djava\.security\.egd=file:\/dev\/\.\/urandom}) }
   its(:content) { should match(%r{export COBDIR=\/opt\/microfocus\/cobol}) }
   its(:content) { should match(%r{export ORACLE_HOME=\/opt\/oracle\/psft\/pt\/oracle-client/12\.1\.0\.2}) }
-  its(:content) { should match(%r{export TUXDIR=\/opt\/oracle\/psft\/pt\/bea\/tuxedo\/12\.1\.3\.0\.0}) }
+  its(:content) { should match(%r{export TUXDIR=\/opt\/oracle\/psft\/pt\/bea\/tuxedo\/tuxedo12\.1\.3\.0\.0}) }
   its(:content) { should match(%r{export PATH=\/opt\/oracle\/psft\/pt\/ps_home8\.55\.05\/appserv:\/opt\/oracle\/psft\/pt\/ps_home8\.55\.05\/setup:\$PATH}) }
   its(:content) { should match(%r{cd \/opt\/oracle\/psft\/pt\/ps_home8\.55\.05 && \. psconfig\.sh}) }
   its(:content) { should match(%r{export PS_CFG_HOME=\/home\/psadm2}) }

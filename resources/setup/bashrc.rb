@@ -19,8 +19,8 @@
 
 resource_name :peopletools_bashrc
 default_action :create
-property :additional_commands, Array
 property :cobol_dir, String, default: node['peopletools']['cobol_dir']
+property :custom_commands, Array, default: node['peopletools']['bashrc']['custom_commands']
 property :db2_instance_user, String
 property :group, String, default: node['peopletools']['group']['oracle_install']['name']
 property :mode, String, default: '0644'
@@ -47,8 +47,8 @@ action :create do
     owner new_resource.owner
     group new_resource.group
     variables(
-      additional_commands: additional_commands,
       cobol_dir: cobol_dir,
+      custom_commands: custom_commands,
       db2_instance_user: db2_instance_user,
       oracle_home_dir: oracle_home_dir,
       ps_app_home_dir: ps_app_home_dir,

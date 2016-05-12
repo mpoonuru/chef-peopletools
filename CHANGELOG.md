@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==========================
 
+1.2.5 (2016-05-12)
+------------------
+- Changed additional_commands property to custom_commands in bashrc resource and set default.
+
 1.2.4 (2016-05-11)
 ------------------
 - Added additional_commands property to bashrc resource.

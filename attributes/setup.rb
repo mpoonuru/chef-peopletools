@@ -17,5 +17,8 @@
 # limitations under the License.
 #
 
+# bashrc
+default['peopletools']['bashrc']['custom_commands'] = [] # custom commands for .bashrc file
+
 # cobol
 default['peopletools']['cobol_dir'] = '/opt/microfocus/cobol' # cobol directory
