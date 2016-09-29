@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: peopletools
+# Cookbook Name:: peopletools_test
 # Recipe:: app
 #
 # Copyright 2016 University of Derby
@@ -18,21 +18,33 @@
 #
 
 # users/groups and system settings
-include_recipe 'peopletools::system'
+include_recipe "#{cookbook_name}::system"
 
 # oracle_client
-peopletools_oracle_client node['peopletools']['oracle_client']['version']
+peopletools_oracle_client '12.1.0.2' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-oracleclient-12.1.0.2.tgz"
+end
 
 # tnsnames
-peopletools_tnsnames ::File.join(
-  node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['oracle_client']['dir'], node['peopletools']['oracle_client']['version'], 'network', 'admin'
-)
+peopletools_tnsnames '12.1.0.2' do
+  db_host 'localhost'
+  db_name 'KITCHEN'
+end
 
 # ps_home
-peopletools_ps_home node['peopletools']['ps_home']['version']
+peopletools_ps_home '8.55.05' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.55.05.tgz"
+end
 
 # tuxedo
-peopletools_tuxedo node['peopletools']['tuxedo']['version']
+peopletools_tuxedo '12.1.3.0.0' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
+  tlisten_password 'password'
+end
 
 # .bashrc
-peopletools_bashrc ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'])
+peopletools_bashrc 'psadm2' do
+  oracle_client_version '12.1.0.2'
+  ps_home_version '8.55.05'
+  tuxedo_version '12.1.3.0.0'
+end

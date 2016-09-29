@@ -19,17 +19,18 @@
 
 resource_name :peopletools_weblogic
 default_action :deploy
-property :archive_url, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['weblogic']['archive_file'])
-property :deploy_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['weblogic']['dir'])
-property :deploy_user, String, default: node['peopletools']['user']['psft_install']['name']
-property :deploy_group, String, default: node['peopletools']['group']['oracle_install']['name']
-property :home_name, String, default: node['peopletools']['weblogic']['home_name']
-property :inventory_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['db']['dir'], node['peopletools']['inventory']['dir'])
-property :inventory_user, String, default: node['peopletools']['user']['oracle']['name']
-property :inventory_group, String, default: node['peopletools']['group']['oracle_install']['name']
-property :jdk_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], "#{node['peopletools']['jdk']['dir']}#{node['peopletools']['jdk']['version']}")
-property :tmp_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['weblogic']['tmp_dir'])
-property :version, String, default: node['peopletools']['weblogic']['version']
+property :archive_url, String, required: true
+property :deploy_location, String, default: '/opt/oracle/psft/pt/bea'
+property :deploy_user, String, default: 'psadm1'
+property :deploy_group, String, default: 'oinstall'
+property :home_name, String, default: 'OraWL1213Home'
+property :inventory_location, String, default: '/opt/oracle/psft/db/oraInventory'
+property :inventory_user, String, default: 'oracle'
+property :inventory_group, String, default: 'oinstall'
+property :jdk_location, String, default: lazy { "/opt/oracle/psft/pt/jdk#{jdk_version}" }
+property :jdk_version, String, required: true
+property :tmp_dir, String, default: '/opt/oracle/psft/pt/wl_tmp'
+property :version, String, name_property: true
 
 action :deploy do
   # inventory

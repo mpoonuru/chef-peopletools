@@ -19,24 +19,23 @@
 
 resource_name :peopletools_bashrc
 default_action :create
-property :cobol_dir, String, default: node['peopletools']['cobol_dir']
-property :custom_commands, Array, default: node['peopletools']['bashrc']['custom_commands']
+property :cobol_dir, String, default: '/opt/microfocus/cobol'
+property :custom_commands, Array, default: []
 property :db2_instance_user, String
-property :group, String, default: node['peopletools']['group']['oracle_install']['name']
+property :group, String, default: 'oinstall'
 property :mode, String, default: '0644'
-property :oracle_home_dir, String, default: ::File.join(
-  node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['oracle_client']['dir'], node['peopletools']['oracle_client']['version']
-)
-property :owner, String, default: node['peopletools']['user']['psft_runtime']['name']
-property :path, String, name_property: true
-property :ps_app_home_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['ps_app_home']['dir'])
+property :oracle_client_version, String, required: true
+property :oracle_home_dir, String, default: lazy { "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}" }
+property :owner, String, name_property: true
+property :path, String, default: lazy { "/home/#{owner}" }
+property :ps_app_home_dir, String, default: '/opt/oracle/psft/pt/ps_app_home'
 property :ps_cfg_home_dir, String, default: lazy { path }
-property :ps_cust_home_dir, String, default: lazy { ::File.join(path, 'custom') }
-property :ps_home_dir, String, default: ::File.join(
-  node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], "#{node['peopletools']['ps_home']['dir']}#{node['peopletools']['ps_home']['version']}"
-)
+property :ps_cust_home_dir, String, default: lazy { "#{path}/custom" }
+property :ps_home_dir, String, default: lazy { "/opt/oracle/psft/pt/ps_home#{ps_home_version}" }
+property :ps_home_version, String, required: true
 property :tns_admin_dir, String
-property :tuxedo_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['tuxedo']['dir'], "tuxedo#{node['peopletools']['tuxedo']['version']}")
+property :tuxedo_dir, String, default: lazy { "/opt/oracle/psft/pt/bea/tuxedo/tuxedo#{tuxedo_version}" }
+property :tuxedo_version, String, required: true
 
 action :create do
   # tnsnames.ora file
