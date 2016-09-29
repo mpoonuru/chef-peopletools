@@ -19,16 +19,16 @@
 
 resource_name :peopletools_tuxedo
 default_action :deploy
-property :archive_url, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['tuxedo']['archive_file'])
-property :deploy_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['tuxedo']['dir'])
-property :deploy_user, String, default: node['peopletools']['user']['psft_install']['name']
-property :deploy_group, String, default: node['peopletools']['group']['oracle_install']['name']
-property :home_name, String, default: node['peopletools']['tuxedo']['home_name']
-property :inventory_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['db']['dir'], node['peopletools']['inventory']['dir'])
-property :inventory_user, String, default: node['peopletools']['user']['oracle']['name']
-property :inventory_group, String, default: node['peopletools']['group']['oracle_install']['name']
-property :tlisten_password, String, default: node['peopletools']['tuxedo']['tlisten_password']
-property :version, String, default: node['peopletools']['tuxedo']['version']
+property :archive_url, String, required: true
+property :deploy_location, String, default: '/opt/oracle/psft/pt/bea/tuxedo'
+property :deploy_user, String, default: 'psadm1'
+property :deploy_group, String, default: 'oinstall'
+property :home_name, String, default: 'OraTux1213Home'
+property :inventory_location, String, default: '/opt/oracle/psft/db/oraInventory'
+property :inventory_user, String, default: 'oracle'
+property :inventory_group, String, default: 'oinstall'
+property :tlisten_password, String, required: true
+property :version, String, name_property: true
 
 action :deploy do
   # inventory

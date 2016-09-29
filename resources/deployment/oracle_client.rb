@@ -19,16 +19,16 @@
 
 resource_name :peopletools_oracle_client
 default_action :deploy
-property :archive_url, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['oracle_client']['archive_file'])
-property :deploy_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['oracle_client']['dir'], node['peopletools']['oracle_client']['version'])
-property :deploy_user, String, default: node['peopletools']['user']['oracle']['name']
-property :deploy_group, String, default: node['peopletools']['group']['oracle_install']['name']
-property :home_name, String, default: node['peopletools']['oracle_client']['home_name']
-property :inventory_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['db']['dir'], node['peopletools']['inventory']['dir'])
-property :inventory_user, String, default: node['peopletools']['user']['oracle']['name']
-property :inventory_group, String, default: node['peopletools']['group']['oracle_install']['name']
-property :tmp_dir, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], node['peopletools']['oracle_client']['dir'], node['peopletools']['oracle_client']['version'], node['peopletools']['oracle_client']['tmp_dir'])
-property :version, String, default: node['peopletools']['oracle_client']['version']
+property :archive_url, String, required: true
+property :deploy_location, String, default: lazy { "/opt/oracle/psft/pt/oracle-client/#{version}" }
+property :deploy_user, String, default: 'oracle'
+property :deploy_group, String, default: 'oinstall'
+property :home_name, String, default: 'OraClient12cHome'
+property :inventory_location, String, default: '/opt/oracle/psft/db/oraInventory'
+property :inventory_user, String, default: 'oracle'
+property :inventory_group, String, default: 'oinstall'
+property :tmp_dir, String, default: lazy { "/opt/oracle/psft/pt/oracle-client/#{version}/oc_tmp" }
+property :version, String, name_property: true
 
 action :deploy do
   # package gcc required to fix issue with libclntshcore.so.12.1

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: peopletools
+# Cookbook Name:: peopletools_test
 # Recipe:: system
 #
 # Copyright 2016 University of Derby
@@ -16,6 +16,42 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+# groups
+node.default['peopletools']['group']['psft_runtime']['name'] = 'psft'
+node.default['peopletools']['group']['psft_app_install']['name'] = 'appinst'
+node.default['peopletools']['group']['oracle_install']['name'] = 'oinstall'
+node.default['peopletools']['group']['oracle_runtime']['name'] = 'dba'
+
+# user defaults
+node.default['peopletools']['user']['home_dir'] = '/home'
+node.default['peopletools']['user']['shell'] = '/bin/bash'
+
+# users
+node.default['peopletools']['user']['psft_install']['name'] = 'psadm1'
+node.default['peopletools']['user']['psft_runtime']['name'] = 'psadm2'
+node.default['peopletools']['user']['psft_app_install']['name'] = 'psadm3'
+node.default['peopletools']['user']['oracle']['name'] = 'oracle'
+
+# limits
+node.default['peopletools']['limits']['group']['hard']['nofile'] = 65_536
+node.default['peopletools']['limits']['group']['soft']['nofile'] = 65_536
+node.default['peopletools']['limits']['group']['hard']['nproc'] = 65_536
+node.default['peopletools']['limits']['group']['soft']['nproc'] = 65_536
+node.default['peopletools']['limits']['group']['hard']['core'] = 'unlimited'
+node.default['peopletools']['limits']['group']['soft']['core'] = 'unlimited'
+node.default['peopletools']['limits']['group']['hard']['memlock'] = 500_000
+node.default['peopletools']['limits']['group']['soft']['memlock'] = 500_000
+node.default['peopletools']['limits']['group']['hard']['stack'] = 102_400
+node.default['peopletools']['limits']['group']['soft']['stack'] = 102_400
+node.default['peopletools']['limits']['user']['hard']['nofile'] = 131_072
+node.default['peopletools']['limits']['user']['soft']['nofile'] = 131_072
+node.default['peopletools']['limits']['user']['hard']['nproc'] = 131_072
+node.default['peopletools']['limits']['user']['soft']['nproc'] = 131_072
+node.default['peopletools']['limits']['user']['hard']['core'] = 'unlimited'
+node.default['peopletools']['limits']['user']['soft']['core'] = 'unlimited'
+node.default['peopletools']['limits']['user']['hard']['memlock'] = 500_000
+node.default['peopletools']['limits']['user']['soft']['memlock'] = 500_000
 
 # sysctl parameters
 node.default['sysctl']['params']['kernel']['core_uses_pid'] = 1
@@ -91,7 +127,7 @@ end
 end
 
 # pt directory
-directory ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir']) do
+directory '/opt/oracle/psft/pt' do
   owner node['peopletools']['user']['psft_install']['name']
   group node['peopletools']['group']['oracle_install']['name']
   mode 0755

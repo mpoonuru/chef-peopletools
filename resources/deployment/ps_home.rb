@@ -19,14 +19,14 @@
 
 resource_name :peopletools_ps_home
 default_action :deploy
-property :archive_url, String, default: ::File.join(node['peopletools']['archive_repo'], node['peopletools']['ps_home']['archive_file'])
-property :db_platform, equal_to: %w(ORACLE DB2ODBC DB2UNIX), default: node['peopletools']['db_platform']
-property :deploy_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['pt']['dir'], "#{node['peopletools']['ps_home']['dir']}#{node['peopletools']['ps_home']['version']}")
-property :deploy_user, String, default: node['peopletools']['user']['psft_install']['name']
-property :deploy_group, String, default: node['peopletools']['group']['oracle_install']['name']
-property :extract_only, [TrueClass, FalseClass], default: node['peopletools']['ps_home']['extract_only']
-property :unicode_db, [TrueClass, FalseClass], default: node['peopletools']['ps_home']['unicode_db']
-property :version, String, default: node['peopletools']['ps_home']['version']
+property :archive_url, String, required: true
+property :db_platform, equal_to: %w(ORACLE DB2ODBC DB2UNIX), default: 'ORACLE'
+property :deploy_location, String, default: lazy { "/opt/oracle/psft/pt/ps_home#{version}" }
+property :deploy_user, String, default: 'psadm1'
+property :deploy_group, String, default: 'oinstall'
+property :extract_only, [TrueClass, FalseClass], default: false
+property :unicode_db, [TrueClass, FalseClass], default: true
+property :version, String, name_property: true
 
 action :deploy do
   # extract ps_home archive

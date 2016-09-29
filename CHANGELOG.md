@@ -1,5 +1,9 @@
 peopletools Cookbook CHANGELOG
-==========================
+==============================
+
+2.0.0 (2016-09-29)
+------------------
+- Removed attributes and recipes and updated some resource properties.
 
 1.2.5 (2016-05-12)
 ------------------

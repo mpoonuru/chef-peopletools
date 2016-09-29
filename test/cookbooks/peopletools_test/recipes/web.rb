@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: peopletools
+# Cookbook Name:: peopletools_test
 # Recipe:: web
 #
 # Copyright 2016 University of Derby
@@ -18,16 +18,27 @@
 #
 
 # users/groups and system settings
-include_recipe 'peopletools::system'
+include_recipe "#{cookbook_name}::system"
 
 # ps_home
-peopletools_ps_home node['peopletools']['ps_home']['version']
+peopletools_ps_home '8.55.05' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.55.05.tgz"
+end
 
 # jdk
-peopletools_jdk node['peopletools']['jdk']['version']
+peopletools_jdk '1.7.0_95' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-jdk1.7.0_95.tgz"
+end
 
 # weblogic
-peopletools_weblogic node['peopletools']['weblogic']['version']
+peopletools_weblogic '12.1.3' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-weblogic12.1.3.tgz"
+  jdk_version '1.7.0_95'
+end
 
 # .bashrc
-peopletools_bashrc ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'])
+peopletools_bashrc 'psadm2' do
+  oracle_client_version '12.1.0.2'
+  ps_home_version '8.55.05'
+  tuxedo_version '12.1.3.0.0'
+end

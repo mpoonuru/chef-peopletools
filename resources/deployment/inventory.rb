@@ -19,9 +19,11 @@
 
 resource_name :peopletools_inventory
 default_action :create
-property :inventory_location, String, default: ::File.join(node['peopletools']['psft']['path'], node['peopletools']['db']['dir'], node['peopletools']['inventory']['dir'])
-property :inventory_user, String, default: node['peopletools']['user']['oracle']['name']
-property :inventory_group, String, default: node['peopletools']['group']['oracle_install']['name']
+property :inventory_location, String, default: '/opt/oracle/psft/db/oraInventory'
+property :inventory_user, String, default: 'oracle'
+property :inventory_group, String, default: 'oinstall'
+property :inventory_minimum_ver, String, default: '2.1.0.6.0'
+property :inventory_saved_with, String, default: '13.2.0.0.0'
 
 action :create do
   # directories
@@ -59,8 +61,8 @@ action :create do
     owner inventory_user
     group inventory_group
     variables(
-      saved_with: node['peopletools']['inventory']['saved_with'],
-      minimum_ver: node['peopletools']['inventory']['minimum_ver']
+      saved_with: inventory_saved_with,
+      minimum_ver: inventory_minimum_ver
     )
     action :create_if_missing
   end

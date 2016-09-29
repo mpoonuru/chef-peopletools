@@ -19,16 +19,17 @@
 
 resource_name :peopletools_tnsnames
 default_action :create
-property :db_host, String, default: node['peopletools']['db_host']
-property :db_name, String, default: node['peopletools']['db_name']
-property :db_port, String, default: node['peopletools']['db_port']
-property :db_protocol, String, default: node['peopletools']['tnsnames']['db_protocol']
-property :db_service_name, String, default: node['peopletools']['db_name']
-property :group, String, default: node['peopletools']['group']['oracle_install']['name']
+property :db_host, String, required: true
+property :db_name, String, required: true
+property :db_port, String, default: '1521'
+property :db_protocol, equal_to: %w(SDP TCP TCPS), default: 'TCP'
+property :db_service_name, String, default: lazy { db_name }
+property :group, String, default: 'oinstall'
 property :mode, String, default: '0644'
-property :owner, String, default: node['peopletools']['user']['oracle']['name']
-property :path, String, name_property: true
-property :server, equal_to: %w(DEDICATED SHARED), default: node['peopletools']['tnsnames']['server']
+property :oracle_client_version, String, name_property: true
+property :owner, String, default: 'oracle'
+property :path, String, default: lazy { "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}/network/admin" }
+property :server, equal_to: %w(DEDICATED SHARED), default: 'DEDICATED'
 
 action :create do
   # tnsnames.ora file
