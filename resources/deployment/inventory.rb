@@ -47,8 +47,8 @@ action :create do
     owner inventory_user
     group inventory_group
     variables(
-      inventory_loc: inventory_location,
-      inst_group: inventory_group
+      inst_group: inventory_group,
+      inventory_loc: inventory_location
     )
     action :create_if_missing
   end
@@ -61,8 +61,8 @@ action :create do
     owner inventory_user
     group inventory_group
     variables(
-      saved_with: inventory_saved_with,
-      minimum_ver: inventory_minimum_ver
+      minimum_ver: inventory_minimum_ver,
+      saved_with: inventory_saved_with
     )
     action :create_if_missing
   end
