@@ -27,8 +27,8 @@ end
 
 # tnsnames
 peopletools_tnsnames '12.1.0.2' do
-  db_host 'localhost'
-  db_name 'KITCHEN'
+  db_host node['peopletools']['db_host']
+  db_name node['peopletools']['db_name']
 end
 
 # ps_home
@@ -47,4 +47,41 @@ peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
   ps_home_version '8.55.05'
   tuxedo_version '12.1.3.0.0'
+end
+
+peopletools_appserver_domain 'KIT' do
+  config_settings(
+    '[Domain Settings]' => ['Allow Dynamic Changes=Y', 'Domain ID=KIT'],
+    '[SMTP Settings]' => ['SMTPServer=localhost']
+  )
+  feature_settings [
+    '{PUBSUB}=No', # Pub/Sub Servers
+    '{QUICKSRV}=No', # Quick Server
+    '{QUERYSRV}=Yes', # Query Servers
+    '{JOLT}=Yes', # Jolt
+    '{JRAD}=No', # Jolt Relay
+    '{WSL}=Yes', # WSL
+    '{DBGSRV}=No', # PC Debugger
+    '{RENSRV}=No', # Event Notification
+    '{MCF}=No', # MCF Servers
+    '{PPM}=No', # Perf Collator
+    '{ANALYTICSRV}=No', # Analytic Servers
+    '{DOMAIN_GW}=No', # Domains Gateway
+    '{SERVER_EVENTS}=No' # Push Notifications
+  ]
+  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_cfg_home '/home/psadm2'
+  startup_settings [
+    node['peopletools']['db_name'], # Database name
+    'ORACLE', # Database type
+    'opr_user_id', # OPR user ID
+    'opr_user_pswd', # OPR user password
+    'KIT', # Domain ID
+    '_____', # Add to path
+    'connect_id', # Connect ID
+    'connect_pswd', # Connect password
+    '_____', # Server name
+    'dom_conn_pwd', # Domain connection password
+    'ENCRYPT' # Encrypt|Noencrypt passwords
+  ]
 end

@@ -88,8 +88,8 @@ end
   user n do
     gid g
     home ::File.join(node['peopletools']['user']['home_dir'], n)
+    manage_home true
     shell node['peopletools']['user']['shell']
-    supports manage_home: true
   end
 end
 
