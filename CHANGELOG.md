@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.1.0 (2016-10-03)
+------------------
+- Added appserver_domain resource and tests.
+
 2.0.0 (2016-09-29)
 ------------------
 - Removed attributes and recipes and updated some resource properties.
