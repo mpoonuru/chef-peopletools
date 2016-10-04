@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.1.1 (2016-10-04)
+------------------
+- Added port_settings property to appserver_domain resource and updated readme.
+
 2.1.0 (2016-10-03)
 ------------------
 - Added appserver_domain resource and tests.
