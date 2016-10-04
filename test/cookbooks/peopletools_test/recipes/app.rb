@@ -75,13 +75,13 @@ peopletools_appserver_domain 'KIT' do
     node['peopletools']['db_name'], # Database name
     'ORACLE', # Database type
     'opr_user_id', # OPR user ID
-    'opr_user_pswd', # OPR user password
+    'opr_user_password', # OPR user password
     'KIT', # Domain ID
     '_____', # Add to path
     'connect_id', # Connect ID
-    'connect_pswd', # Connect password
+    'connect_password', # Connect password
     '_____', # Server name
-    'dom_conn_pwd', # Domain connection password
+    'domain_connection_password', # Domain connection password
     'ENCRYPT' # Encrypt|Noencrypt passwords
   ]
 end

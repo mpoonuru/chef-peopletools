@@ -25,7 +25,7 @@ Usage
 Include `peopletools` as a dependency in your cookbook's `metadata.rb`.
 
 ```
-depends 'peopletools', '~> 2.1.0'
+depends 'peopletools', '~> 2.1.1'
 ```
 
 Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure the `['peopletools']['archive_repo']` attribute to point to the repository location.  Use the resources to deploy and configure PeopleTools.
@@ -52,6 +52,27 @@ Resource to configure tnsnames.ora.
 
 ##### actions
 - `create`
+
+#### `peopletools_appserver_domain`
+Resource to configure appserver domain.
+
+##### properties
+- `config_settings`: Config settings. Default: {}.
+- `domain_name`: Domain name. Name Property.
+- `domain_user`: Domain user. Default: 'psadm2'.
+- `env_settings`: Environment settings. Default: [].
+- `feature_settings`: Feature settings. Default: [].
+- `psadmin_path`: Path to psadmin. Default: ::File.join(ps_home, 'appserv/psadmin').
+- `port_settings`: Port settings %w(WSL_PORT JSL_PORT JRAD_PORT). Default: [].
+- `ps_home`: PS Home. Required.
+- `ps_cfg_home`: PS Config Home. Required.
+- `startup_settings`: Startup settings. Required.
+- `template_type`: Template type (small | medium | large | developer). Default: 'small'.
+
+##### actions
+- `create` (Default)
+- `boot`
+- `shutdown`
 
 #### Deployment:
 
@@ -229,6 +250,44 @@ peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
   ps_home_version '8.55.05'
   tuxedo_version '12.1.3.0.0'
+end
+
+# appserver domain
+peopletools_appserver_domain 'KIT' do
+  config_settings(
+    '[Domain Settings]' => ['Allow Dynamic Changes=Y', 'Domain ID=KIT'],
+    '[SMTP Settings]' => ['SMTPServer=localhost']
+  )
+  feature_settings [
+    '{PUBSUB}=No', # Pub/Sub Servers
+    '{QUICKSRV}=No', # Quick Server
+    '{QUERYSRV}=Yes', # Query Servers
+    '{JOLT}=Yes', # Jolt
+    '{JRAD}=No', # Jolt Relay
+    '{WSL}=Yes', # WSL
+    '{DBGSRV}=No', # PC Debugger
+    '{RENSRV}=No', # Event Notification
+    '{MCF}=No', # MCF Servers
+    '{PPM}=No', # Perf Collator
+    '{ANALYTICSRV}=No', # Analytic Servers
+    '{DOMAIN_GW}=No', # Domains Gateway
+    '{SERVER_EVENTS}=No' # Push Notifications
+  ]
+  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_cfg_home '/home/psadm2'
+  startup_settings [
+    node['peopletools']['db_name'], # Database name
+    'ORACLE', # Database type
+    'opr_user_id', # OPR user ID
+    'opr_user_password', # OPR user password
+    'KIT', # Domain ID
+    '_____', # Add to path
+    'connect_id', # Connect ID
+    'connect_password', # Connect password
+    '_____', # Server name
+    'domain_connection_password', # Domain connection password
+    'ENCRYPT' # Encrypt|Noencrypt passwords
+  ]
 end
 ```
 

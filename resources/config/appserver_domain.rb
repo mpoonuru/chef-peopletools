@@ -22,9 +22,10 @@ default_action :create
 property :config_settings, Hash, default: {}
 property :domain_name, String, name_property: true
 property :domain_user, String, default: 'psadm2'
-property :env_settings, String, default: ''
-property :feature_settings, Array, default: ['']
+property :env_settings, Array, default: []
+property :feature_settings, Array, default: []
 property :psadmin_path, String, default: lazy { ::File.join(ps_home, 'appserv/psadmin') }
+property :port_settings, Array, default: []
 property :ps_home, String, required: true
 property :ps_cfg_home, String, required: true
 property :startup_settings, Array, required: true
@@ -43,7 +44,7 @@ action :create do
 
   # create appserver domain
   execute 'appserver_domain_create' do
-    command "su - #{domain_user} -c \"#{psadmin_path} -c create -d #{domain_name} -t #{template_type} -s '#{startup_settings.join('%')}' -env '#{env_settings}'\""
+    command "su - #{domain_user} -c \"#{psadmin_path} -c create -d #{domain_name} -t #{template_type} -s '#{startup_settings.join('%')}' -env '#{env_settings.join('#')}' -p '#{port_settings.join('%')}'\""
     only_if { ::File.file?(psadmin_path) }
     not_if { ::File.exist?(::File.join(ps_cfg_home, 'appserv', domain_name)) }
     notifies :run, 'execute[appserver_domain_configure]', :immediately
