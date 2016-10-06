@@ -49,12 +49,12 @@ action :create do
       cobol_dir: cobol_dir,
       custom_commands: custom_commands,
       db2_instance_user: db2_instance_user,
-      oracle_home_dir: oracle_home_dir,
-      ps_app_home_dir: ps_app_home_dir,
-      ps_cfg_home_dir: ps_cfg_home_dir,
-      ps_cust_home_dir: ps_cust_home_dir,
-      ps_home_dir: ps_home_dir,
-      tns_admin_dir: tns_admin_dir,
+      oracle_home: oracle_home,
+      ps_app_home: ps_app_home,
+      ps_cfg_home: ps_cfg_home,
+      ps_cust_home: ps_cust_home,
+      ps_home: ps_home,
+      tns_admin: tns_admin,
       tuxedo_dir: tuxedo_dir
     )
     action :create
