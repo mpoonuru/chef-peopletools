@@ -25,15 +25,15 @@ property :db2_instance_user, String
 property :group, String, default: 'oinstall'
 property :mode, String, default: '0644'
 property :oracle_client_version, String, required: true
-property :oracle_home_dir, String, default: lazy { "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}" }
+property :oracle_home, String, default: lazy { "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}" }
 property :owner, String, name_property: true
 property :path, String, default: lazy { "/home/#{owner}" }
-property :ps_app_home_dir, String, default: '/opt/oracle/psft/pt/ps_app_home'
-property :ps_cfg_home_dir, String, default: lazy { path }
-property :ps_cust_home_dir, String, default: lazy { "#{path}/custom" }
-property :ps_home_dir, String, default: lazy { "/opt/oracle/psft/pt/ps_home#{ps_home_version}" }
+property :ps_app_home, String, default: '/opt/oracle/psft/pt/ps_app_home'
+property :ps_cfg_home, String, default: lazy { path }
+property :ps_cust_home, String, default: lazy { "#{path}/custom" }
+property :ps_home, String, default: lazy { "/opt/oracle/psft/pt/ps_home#{ps_home_version}" }
 property :ps_home_version, String, required: true
-property :tns_admin_dir, String
+property :tns_admin, String
 property :tuxedo_dir, String, default: lazy { "/opt/oracle/psft/pt/bea/tuxedo/tuxedo#{tuxedo_version}" }
 property :tuxedo_version, String, required: true
 

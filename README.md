@@ -25,7 +25,7 @@ Usage
 Include `peopletools` as a dependency in your cookbook's `metadata.rb`.
 
 ```
-depends 'peopletools', '~> 2.1.1'
+depends 'peopletools', '~> 2.1.2'
 ```
 
 Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure the `['peopletools']['archive_repo']` attribute to point to the repository location.  Use the resources to deploy and configure PeopleTools.
@@ -201,15 +201,15 @@ Resource to configure .bashrc.
 - `group`: .bashrc group. Default: 'oinstall'.
 - `mode`: .bashrc mode. Default: '0644'.
 - `oracle_client_version`: Oracle Client version. Required.
-- `oracle_home_dir`: Oracle home directory. Default: "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}".
+- `oracle_home`: Oracle Home path. Default: "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}".
 - `owner`: .bashrc owner. Name Property.
 - `path`: .bashrc path. Default: "/home/#{owner}".
-- `ps_app_home_dir`: PS App Home directory. Default: '/opt/oracle/psft/pt/ps_app_home'.
-- `ps_cfg_home_dir`: PS Config Home directory. Default: path.
-- `ps_cust_home_dir`: PS Custom Home directory. Default: "#{path}/custom".
-- `ps_home_dir`: PS Home directory. Default: "/opt/oracle/psft/pt/ps_home#{ps_home_version}".
+- `ps_app_home`: PS App Home path. Default: '/opt/oracle/psft/pt/ps_app_home'.
+- `ps_cfg_home`: PS Config Home path. Default: path.
+- `ps_cust_home`: PS Custom Home path. Default: "#{path}/custom".
+- `ps_home`: PS Home path. Default: "/opt/oracle/psft/pt/ps_home#{ps_home_version}".
 - `ps_home_version`: PS Home version. Required.
-- `tns_admin_dir`: TNS admin directory. Optional.
+- `tns_admin`: TNS admin path. Optional.
 - `tuxedo_dir`: Tuxedo directory. Default: "/opt/oracle/psft/pt/bea/tuxedo/tuxedo#{tuxedo_version}".
 - `tuxedo_version`: Tuxedo version. Required.
 
