@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.1.4 (2016-10-06)
+------------------
+- Added sensitive property to execute resources to protect passwords.
+
 2.1.3 (2016-10-06)
 ------------------
 - Corrected bashrc variables to match properties.

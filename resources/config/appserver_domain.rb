@@ -45,6 +45,7 @@ action :create do
   # create appserver domain
   execute 'appserver_domain_create' do
     command "su - #{domain_user} -c \"#{psadmin_path} -c create -d #{domain_name} -t #{template_type} -s '#{startup_settings.join('%')}' -env '#{env_settings.join('#')}' -p '#{port_settings.join('%')}'\""
+    sensitive true
     only_if { ::File.file?(psadmin_path) }
     not_if { ::File.exist?(::File.join(ps_cfg_home, 'appserv', domain_name)) }
     notifies :run, 'execute[appserver_domain_configure]', :immediately
@@ -53,6 +54,7 @@ action :create do
   # configure appserver domain
   execute 'appserver_domain_configure' do
     command "su - #{domain_user} -c \"#{psadmin_path} -c configure -d #{domain_name} -cfg '#{config_settings_expanded.join('#')}' -u '#{feature_settings.join('%')}'\""
+    sensitive true
     only_if { ::File.file?(psadmin_path) }
     action :nothing
   end
