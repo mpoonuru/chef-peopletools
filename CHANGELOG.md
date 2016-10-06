@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.1.2 (2016-10-04)
+------------------
+- Updated properties for bashrc resource.
+
 2.1.1 (2016-10-04)
 ------------------
 - Added port_settings property to appserver_domain resource and updated readme.
