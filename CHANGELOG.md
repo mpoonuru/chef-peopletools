@@ -1,7 +1,11 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
-2.1.2 (2016-10-04)
+2.1.3 (2016-10-06)
+------------------
+- Corrected bashrc variables to match properties.
+
+2.1.2 (2016-10-06)
 ------------------
 - Updated properties for bashrc resource.
 
