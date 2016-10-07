@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: peopletools_test
-# Recipe:: app
+# Recipe:: prcs
 #
 # Copyright 2016 University of Derby
 #
@@ -50,23 +50,15 @@ peopletools_bashrc 'psadm2' do
   tuxedo_version '12.1.3.0.0'
 end
 
-peopletools_appserver_domain 'KIT' do
+peopletools_prcs_domain 'KIT' do
   config_settings(
-    '[Domain Settings]' => ['Allow Dynamic Changes=Y', 'Domain ID=KIT'],
+    '[Process Scheduler]' => ['Allow Dynamic Changes=Y'],
     '[SMTP Settings]' => ['SMTPServer=localhost']
   )
   feature_settings [
-    '{PUBSUB}=No', # Pub/Sub Servers
-    '{QUICKSRV}=No', # Quick Server
-    '{QUERYSRV}=Yes', # Query Servers
-    '{JOLT}=Yes', # Jolt
-    '{JRAD}=No', # Jolt Relay
-    '{WSL}=Yes', # WSL
-    '{DBGSRV}=No', # PC Debugger
-    '{RENSRV}=No', # Event Notification
-    '{MCF}=No', # MCF Servers
+    '{APPENG}=Yes', # App Engine
+    '{MSTRSRV}=Yes', # Master Scheduler
     '{PPM}=No', # Perf Collator
-    '{ANALYTICSRV}=No', # Analytic Servers
     '{DOMAIN_GW}=No', # Domains Gateway
     '{SERVER_EVENTS}=No' # Push Notifications
   ]
@@ -75,13 +67,15 @@ peopletools_appserver_domain 'KIT' do
   startup_settings [
     node['peopletools']['db_name'], # Database name
     'ORACLE', # Database type
+    'PSUNX', # Prcs server
     'opr_user_id', # OPR user ID
     'opr_user_pwd', # OPR user password
-    'KIT', # Domain ID
-    '_____', # Add to path
     'connect_id', # Connect ID
     'connect_pwd', # Connect password
     '_____', # Server name
+    '%PS_SERVDIR%/log_output', # Log/output directory
+    '%PS_HOME%/bin/sqr/%PS_DB%/bin', # SQRBIN
+    '_____', # Add to path
     'domain_connection_pwd', # Domain connection password
     'ENCRYPT' # (NO)ENCRYPT passwords
   ]

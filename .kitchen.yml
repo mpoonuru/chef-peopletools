@@ -22,6 +22,16 @@ suites:
         db_name: 'KITCHEN'
         ps_app_home:
           archive_repo: <%= ENV['PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO'] %>
+  - name: prcs
+    run_list:
+      - recipe[peopletools_test::prcs]
+    attributes:
+      peopletools:
+        archive_repo: <%= ENV['PEOPLETOOLS_ARCHIVE_REPO'] %>
+        db_host: 'localhost'
+        db_name: 'KITCHEN'
+        ps_app_home:
+          archive_repo: <%= ENV['PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO'] %>
   - name: web
     run_list:
       - recipe[peopletools_test::web]

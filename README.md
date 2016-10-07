@@ -25,33 +25,14 @@ Usage
 Include `peopletools` as a dependency in your cookbook's `metadata.rb`.
 
 ```
-depends 'peopletools', '~> 2.1.4'
+depends 'peopletools', '~> 2.2.0'
 ```
 
-Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure the `['peopletools']['archive_repo']` attribute to point to the repository location.  Use the resources to deploy and configure PeopleTools.
+Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure a `['peopletools']['archive_repo']` attribute to point to the repository location.  Use the resources to deploy and configure PeopleTools.
 
 Resources
 ---------
 #### Config:
-
-#### `peopletools_tnsnames`
-Resource to configure tnsnames.ora.
-
-##### properties
-- `db_host`: Database host. Required.
-- `db_name`: Database name. Required.
-- `db_port`: Database port. Default: '1521'.
-- `db_protocol`: Database protocol (SDP | TCP | TCPS). Default: 'TCP'.
-- `db_service_name` Database service name. Default: db_name.
-- `group`: tnsnames.ora group. Default: 'oinstall'.
-- `mode`: tnsnames.ora mode. Default: '0644'.
-- `oracle_client_version`: Oracle Client version. Name Property.
-- `owner`: tnsnames.ora owner. Default: 'oracle'.
-- `path`: tnsnames.ora path. Default: "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}/network/admin".
-- `server`: Server type (DEDICATED | SHARED). Default: 'DEDICATED'.
-
-##### actions
-- `create`
 
 #### `peopletools_appserver_domain`
 Resource to configure appserver domain.
@@ -73,6 +54,45 @@ Resource to configure appserver domain.
 - `create` (Default)
 - `boot`
 - `shutdown`
+
+#### `peopletools_prcs_domain`
+Resource to configure prcs domain.
+
+##### properties
+- `config_settings`: Config settings. Default: {}.
+- `domain_name`: Domain name. Name Property.
+- `domain_user`: Domain user. Default: 'psadm2'.
+- `env_settings`: Environment settings.
+- `feature_settings`: Feature settings. Default: [].
+- `psadmin_path`: Path to psadmin. Default: ::File.join(ps_home, 'appserv/psadmin').
+- `ps_home`: PS Home. Required.
+- `ps_cfg_home`: PS Config Home. Required.
+- `startup_settings`: Startup settings. Required.
+- `template_type`: Template type (unix). Default: 'unix'.
+
+##### actions
+- `create` (Default)
+- `start`
+- `stop`
+
+#### `peopletools_tnsnames`
+Resource to configure tnsnames.ora.
+
+##### properties
+- `db_host`: Database host. Required.
+- `db_name`: Database name. Required.
+- `db_port`: Database port. Default: '1521'.
+- `db_protocol`: Database protocol (SDP | TCP | TCPS). Default: 'TCP'.
+- `db_service_name` Database service name. Default: db_name.
+- `group`: tnsnames.ora group. Default: 'oinstall'.
+- `mode`: tnsnames.ora mode. Default: '0644'.
+- `oracle_client_version`: Oracle Client version. Name Property.
+- `owner`: tnsnames.ora owner. Default: 'oracle'.
+- `path`: tnsnames.ora path. Default: "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}/network/admin".
+- `server`: Server type (DEDICATED | SHARED). Default: 'DEDICATED'.
+
+##### actions
+- `create`
 
 #### Deployment:
 
@@ -218,10 +238,10 @@ Resource to configure .bashrc.
 
 Examples
 --------
-#### Application server
+#### Application server recipe
 ```
 # users/groups and system settings
-include_recipe "#{cookbook_name}::system"
+include_recipe "#{cookbook_name}::_common"
 
 # oracle_client
 peopletools_oracle_client '12.1.0.2' do
@@ -279,19 +299,88 @@ peopletools_appserver_domain 'KIT' do
     node['peopletools']['db_name'], # Database name
     'ORACLE', # Database type
     'opr_user_id', # OPR user ID
-    'opr_user_password', # OPR user password
+    'opr_user_pwd', # OPR user password
     'KIT', # Domain ID
     '_____', # Add to path
     'connect_id', # Connect ID
-    'connect_password', # Connect password
+    'connect_pwd', # Connect password
     '_____', # Server name
-    'domain_connection_password', # Domain connection password
-    'ENCRYPT' # Encrypt|Noencrypt passwords
+    'domain_connection_pwd', # Domain connection password
+    'ENCRYPT' # (NO)ENCRYPT passwords
   ]
+  sensitive true
 end
 ```
 
-#### Web server
+### Process Scheduler recipe
+```
+# users, groups, and system settings
+include_recipe "#{cookbook_name}::_common"
+
+# oracle_client
+peopletools_oracle_client '12.1.0.2' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-oracleclient-12.1.0.2.tgz"
+end
+
+# tnsnames
+peopletools_tnsnames '12.1.0.2' do
+  db_host node['peopletools']['db_host']
+  db_name node['peopletools']['db_name']
+end
+
+# ps_home
+peopletools_ps_home '8.55.05' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.55.05.tgz"
+end
+
+# tuxedo
+peopletools_tuxedo '12.1.3.0.0' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
+  tlisten_password 'password'
+  sensitive true
+end
+
+# .bashrc
+peopletools_bashrc 'psadm2' do
+  oracle_client_version '12.1.0.2'
+  ps_home_version '8.55.05'
+  tuxedo_version '12.1.3.0.0'
+end
+
+peopletools_prcs_domain 'KIT' do
+  config_settings(
+    '[Process Scheduler]' => ['Allow Dynamic Changes=Y'],
+    '[SMTP Settings]' => ['SMTPServer=localhost']
+  )
+  feature_settings [
+    '{APPENG}=Yes', # App Engine
+    '{MSTRSRV}=Yes', # Master Scheduler
+    '{PPM}=No', # Perf Collator
+    '{DOMAIN_GW}=No', # Domains Gateway
+    '{SERVER_EVENTS}=No' # Push Notifications
+  ]
+  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_cfg_home '/home/psadm2'
+  startup_settings [
+    node['peopletools']['db_name'], # Database name
+    'ORACLE', # Database type
+    'PSUNX', # Prcs server
+    'opr_user_id', # OPR user ID
+    'opr_user_pwd', # OPR user password
+    'connect_id', # Connect ID
+    'connect_pwd', # Connect password
+    '_____', # Server name
+    '%PS_SERVDIR%/log_output', # Log/output directory
+    '%PS_HOME%/bin/sqr/%PS_DB%/bin', # SQRBIN
+    '_____', # Add to path
+    'domain_connection_pwd', # Domain connection password
+    'ENCRYPT' # (NO)ENCRYPT passwords
+  ]
+  sensitive true
+end
+```
+
+#### Web server recipe
 ```
 # users/groups and system settings
 include_recipe "#{cookbook_name}::system"
@@ -320,7 +409,7 @@ peopletools_bashrc 'psadm2' do
 end
 ```
 
-#### System recipe
+#### Common recipe
 ```
 # groups
 node.default['peopletools']['group']['psft_runtime']['name'] = 'psft'
@@ -373,10 +462,11 @@ node.default['sysctl']['params']['net']['ipv4']['tcp_window_scaling'] = 1
 include_recipe 'sysctl::apply'
 
 # groups
-[node['peopletools']['group']['psft_runtime']['name'],
- node['peopletools']['group']['psft_app_install']['name'],
- node['peopletools']['group']['oracle_install']['name'],
- node['peopletools']['group']['oracle_runtime']['name']
+[
+  node['peopletools']['group']['psft_runtime']['name'],
+  node['peopletools']['group']['psft_app_install']['name'],
+  node['peopletools']['group']['oracle_install']['name'],
+  node['peopletools']['group']['oracle_runtime']['name']
 ].each do |g|
   group g do
     append true
@@ -385,7 +475,8 @@ include_recipe 'sysctl::apply'
 end
 
 # users
-{ node['peopletools']['user']['psft_install']['name'] => node['peopletools']['group']['oracle_install']['name'],
+{
+  node['peopletools']['user']['psft_install']['name'] => node['peopletools']['group']['oracle_install']['name'],
   node['peopletools']['user']['psft_runtime']['name'] => node['peopletools']['group']['oracle_install']['name'],
   node['peopletools']['user']['psft_app_install']['name'] => node['peopletools']['group']['psft_app_install']['name'],
   node['peopletools']['user']['oracle']['name'] => node['peopletools']['group']['oracle_install']['name']
@@ -401,10 +492,11 @@ end
 # psft_runtime group membership
 group node['peopletools']['group']['psft_runtime']['name'] do
   append true
-  members [node['peopletools']['user']['psft_install']['name'],
-           node['peopletools']['user']['psft_runtime']['name'],
-           node['peopletools']['user']['psft_app_install']['name']
-          ]
+  members [
+    node['peopletools']['user']['psft_install']['name'],
+    node['peopletools']['user']['psft_runtime']['name'],
+    node['peopletools']['user']['psft_app_install']['name']
+  ]
   action :create
 end
 
@@ -416,8 +508,9 @@ group node['peopletools']['group']['oracle_runtime']['name'] do
 end
 
 # limits
-[node['peopletools']['group']['psft_runtime']['name'],
- node['peopletools']['group']['psft_app_install']['name']
+[
+  node['peopletools']['group']['psft_runtime']['name'],
+  node['peopletools']['group']['psft_app_install']['name']
 ].each do |g|
   limits_config g do
     limits_array = []
@@ -435,7 +528,15 @@ end
 directory '/opt/oracle/psft/pt' do
   owner node['peopletools']['user']['psft_install']['name']
   group node['peopletools']['group']['oracle_install']['name']
-  mode 0755
+  mode '0755'
+  recursive true
+end
+
+# ps_cust_home directory
+directory ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'], 'custom') do
+  owner node['peopletools']['user']['psft_runtime']['name']
+  group node['peopletools']['group']['oracle_install']['name']
+  mode '0755'
   recursive true
 end
 ```

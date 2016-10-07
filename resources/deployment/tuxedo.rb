@@ -65,7 +65,7 @@ action :deploy do
     command "su - #{deploy_user} -c \"#{::File.join(deploy_location, 'oui', 'bin', 'runInstaller')} " \
             "-silent -clone -waitforcompletion -nowait -invPtrLoc #{inventory_location}/oraInst.loc " \
             "ORACLE_HOME=#{deploy_location} ORACLE_HOME_NAME=#{home_name} TLISTEN_PASSWORD=#{tlisten_password}\""
-    sensitive true
+    sensitive new_resource.sensitive
     only_if { ::File.file?(::File.join(deploy_location, 'oui', 'bin', 'runInstaller')) }
     action :nothing
   end

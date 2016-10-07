@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: peopletools_test
-# Recipe:: system
+# Recipe:: _common
 #
 # Copyright 2016 University of Derby
 #
@@ -68,10 +68,11 @@ node.default['sysctl']['params']['net']['ipv4']['tcp_window_scaling'] = 1
 include_recipe 'sysctl::apply'
 
 # groups
-[node['peopletools']['group']['psft_runtime']['name'],
- node['peopletools']['group']['psft_app_install']['name'],
- node['peopletools']['group']['oracle_install']['name'],
- node['peopletools']['group']['oracle_runtime']['name']
+[
+  node['peopletools']['group']['psft_runtime']['name'],
+  node['peopletools']['group']['psft_app_install']['name'],
+  node['peopletools']['group']['oracle_install']['name'],
+  node['peopletools']['group']['oracle_runtime']['name']
 ].each do |g|
   group g do
     append true
@@ -80,7 +81,8 @@ include_recipe 'sysctl::apply'
 end
 
 # users
-{ node['peopletools']['user']['psft_install']['name'] => node['peopletools']['group']['oracle_install']['name'],
+{
+  node['peopletools']['user']['psft_install']['name'] => node['peopletools']['group']['oracle_install']['name'],
   node['peopletools']['user']['psft_runtime']['name'] => node['peopletools']['group']['oracle_install']['name'],
   node['peopletools']['user']['psft_app_install']['name'] => node['peopletools']['group']['psft_app_install']['name'],
   node['peopletools']['user']['oracle']['name'] => node['peopletools']['group']['oracle_install']['name']
@@ -96,10 +98,11 @@ end
 # psft_runtime group membership
 group node['peopletools']['group']['psft_runtime']['name'] do
   append true
-  members [node['peopletools']['user']['psft_install']['name'],
-           node['peopletools']['user']['psft_runtime']['name'],
-           node['peopletools']['user']['psft_app_install']['name']
-          ]
+  members [
+    node['peopletools']['user']['psft_install']['name'],
+    node['peopletools']['user']['psft_runtime']['name'],
+    node['peopletools']['user']['psft_app_install']['name']
+  ]
   action :create
 end
 
@@ -111,8 +114,9 @@ group node['peopletools']['group']['oracle_runtime']['name'] do
 end
 
 # limits
-[node['peopletools']['group']['psft_runtime']['name'],
- node['peopletools']['group']['psft_app_install']['name']
+[
+  node['peopletools']['group']['psft_runtime']['name'],
+  node['peopletools']['group']['psft_app_install']['name']
 ].each do |g|
   limits_config g do
     limits_array = []
@@ -130,6 +134,14 @@ end
 directory '/opt/oracle/psft/pt' do
   owner node['peopletools']['user']['psft_install']['name']
   group node['peopletools']['group']['oracle_install']['name']
-  mode 0755
+  mode '0755'
+  recursive true
+end
+
+# ps_cust_home directory
+directory ::File.join(node['peopletools']['user']['home_dir'], node['peopletools']['user']['psft_runtime']['name'], 'custom') do
+  owner node['peopletools']['user']['psft_runtime']['name']
+  group node['peopletools']['group']['oracle_install']['name']
+  mode '0755'
   recursive true
 end
