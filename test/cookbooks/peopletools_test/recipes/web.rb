@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-# users/groups and system settings
-include_recipe "#{cookbook_name}::system"
+# users, groups, and system settings
+include_recipe "#{cookbook_name}::_common"
 
 # ps_home
 peopletools_ps_home '8.55.05' do

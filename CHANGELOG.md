@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.2.0 (2016-10-07)
+------------------
+- Added prcs_domain resource.
+
 2.1.4 (2016-10-06)
 ------------------
 - Added sensitive property to execute resources to protect passwords.

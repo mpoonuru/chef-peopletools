@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: peopletools
-# Resource:: appserver_domain
+# Resource:: prcs_domain
 #
 # Copyright 2016 University of Derby
 #
@@ -17,19 +17,18 @@
 # limitations under the License.
 #
 
-resource_name :peopletools_appserver_domain
+resource_name :peopletools_prcs_domain
 default_action :create
 property :config_settings, Hash, default: {}
 property :domain_name, String, name_property: true
 property :domain_user, String, default: 'psadm2'
-property :env_settings, Array, default: []
+property :env_settings, Array
 property :feature_settings, Array, default: []
 property :psadmin_path, String, default: lazy { ::File.join(ps_home, 'appserv/psadmin') }
-property :port_settings, Array, default: []
 property :ps_home, String, required: true
 property :ps_cfg_home, String, required: true
 property :startup_settings, Array, required: true
-property :template_type, equal_to: %w(small medium large developer), default: 'small'
+property :template_type, equal_to: %w(unix), default: 'unix'
 
 action :create do
   # expand config_settings hash
@@ -42,36 +41,42 @@ action :create do
     end
   end
 
-  # create appserver domain
-  execute 'appserver_domain_create' do
-    command "su - #{domain_user} -c \"#{psadmin_path} -c create -d #{domain_name} -t #{template_type} -s '#{startup_settings.join('%')}' -env '#{env_settings.join('#')}' -p '#{port_settings.join('%')}'\""
-    sensitive new_resource.sensitive
-    only_if { ::File.file?(psadmin_path) }
-    not_if { ::File.exist?(::File.join(ps_cfg_home, 'appserv', domain_name)) }
-    notifies :run, 'execute[appserver_domain_configure]', :immediately
+  # avoid error if env_settings is not set
+  env_settings_command = ''
+  if property_is_set?(:env_settings)
+    env_settings_command = " -env '#{env_settings.join('#')}'"
   end
 
-  # configure appserver domain
-  execute 'appserver_domain_configure' do
-    command "su - #{domain_user} -c \"#{psadmin_path} -c configure -d #{domain_name} -cfg '#{config_settings_expanded.join('#')}' -u '#{feature_settings.join('%')}'\""
+  # create prcs domain
+  execute 'prcs_domain_create' do
+    command "su - #{domain_user} -c \"#{psadmin_path} -p create -d #{domain_name} -t #{template_type} -ps '#{startup_settings.join(',')}'#{env_settings_command}\""
+    sensitive new_resource.sensitive
+    only_if { ::File.file?(psadmin_path) }
+    not_if { ::File.exist?(::File.join(ps_cfg_home, 'appserv/prcs', domain_name)) }
+    notifies :run, 'execute[prcs_domain_configure]', :immediately
+  end
+
+  # configure prcs domain
+  execute 'prcs_domain_configure' do
+    command "su - #{domain_user} -c \"#{psadmin_path} -p configure -d #{domain_name} -cfg '#{config_settings_expanded.join('#')}' -u '#{feature_settings.join('%')}'\""
     sensitive new_resource.sensitive
     only_if { ::File.file?(psadmin_path) }
     action :nothing
   end
 end
 
-action :boot do
-  # boot appserver domain
-  execute 'appserver_domain_boot' do
-    command "su - #{domain_user} -c \"#{psadmin_path} -c boot -d #{domain_name}\""
-    only_if { ::File.file?(psadmin_path) && ::File.exist?(::File.join(ps_cfg_home, 'appserv', domain_name)) }
+action :start do
+  # start prcs domain
+  execute 'prcs_domain_start' do
+    command "su - #{domain_user} -c \"#{psadmin_path} -p start -d #{domain_name}\""
+    only_if { ::File.file?(psadmin_path) && ::File.exist?(::File.join(ps_cfg_home, 'appserv/prcs', domain_name)) }
   end
 end
 
-action :shutdown do
-  # shutdown appserver domain
-  execute 'appserver_domain_shutdown' do
-    command "su - #{domain_user} -c \"#{psadmin_path} -c shutdown -d #{domain_name}\""
-    only_if { ::File.file?(psadmin_path) && ::File.exist?(::File.join(ps_cfg_home, 'appserv', domain_name)) }
+action :stop do
+  # stop prcs domain
+  execute 'prcs_domain_stop' do
+    command "su - #{domain_user} -c \"#{psadmin_path} -p stop -d #{domain_name}\""
+    only_if { ::File.file?(psadmin_path) && ::File.exist?(::File.join(ps_cfg_home, 'appserv/prcs', domain_name)) }
   end
 end
