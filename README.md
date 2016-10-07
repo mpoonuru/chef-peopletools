@@ -295,6 +295,7 @@ peopletools_appserver_domain 'KIT' do
   ]
   ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
   ps_cfg_home '/home/psadm2'
+  sensitive true
   startup_settings [
     node['peopletools']['db_name'], # Database name
     'ORACLE', # Database type
@@ -308,7 +309,6 @@ peopletools_appserver_domain 'KIT' do
     'domain_connection_pwd', # Domain connection password
     'ENCRYPT' # (NO)ENCRYPT passwords
   ]
-  sensitive true
 end
 ```
 
@@ -361,6 +361,7 @@ peopletools_prcs_domain 'KIT' do
   ]
   ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
   ps_cfg_home '/home/psadm2'
+  sensitive true
   startup_settings [
     node['peopletools']['db_name'], # Database name
     'ORACLE', # Database type
@@ -376,7 +377,6 @@ peopletools_prcs_domain 'KIT' do
     'domain_connection_pwd', # Domain connection password
     'ENCRYPT' # (NO)ENCRYPT passwords
   ]
-  sensitive true
 end
 ```
 
