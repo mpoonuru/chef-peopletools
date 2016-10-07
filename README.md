@@ -47,6 +47,7 @@ Resource to configure appserver domain.
 - `port_settings`: Port settings %w(WSL_PORT JSL_PORT JRAD_PORT). Default: [].
 - `ps_home`: PS Home. Required.
 - `ps_cfg_home`: PS Config Home. Required.
+- `sensitive`: Ensure that sensitive resource data is not logged by the chef-client (true | false). Default: false.
 - `startup_settings`: Startup settings. Required.
 - `template_type`: Template type (small | medium | large | developer). Default: 'small'.
 
@@ -67,6 +68,7 @@ Resource to configure prcs domain.
 - `psadmin_path`: Path to psadmin. Default: ::File.join(ps_home, 'appserv/psadmin').
 - `ps_home`: PS Home. Required.
 - `ps_cfg_home`: PS Config Home. Required.
+- `sensitive`: Ensure that sensitive resource data is not logged by the chef-client (true | false). Default: false.
 - `startup_settings`: Startup settings. Required.
 - `template_type`: Template type (unix). Default: 'unix'.
 
@@ -183,6 +185,7 @@ Resource to deploy Oracle Tuxedo.
 - `inventory_location`: Inventory location. Default: '/opt/oracle/psft/db/oraInventory'.
 - `inventory_user`: Inventory user. Default: 'oracle'.
 - `inventory_group`: Inventory group. Default: 'oinstall'.
+- `sensitive`: Ensure that sensitive resource data is not logged by the chef-client (true | false). Default: false.
 - `tlisten_password`: Tuxedo listener password. Required.
 - `version`: Tuxedo version. Name Property.
 
@@ -262,6 +265,7 @@ end
 # tuxedo
 peopletools_tuxedo '12.1.3.0.0' do
   archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
+  sensitive true
   tlisten_password 'password'
 end
 
@@ -336,8 +340,8 @@ end
 # tuxedo
 peopletools_tuxedo '12.1.3.0.0' do
   archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
-  tlisten_password 'password'
   sensitive true
+  tlisten_password 'password'
 end
 
 # .bashrc
