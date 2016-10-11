@@ -25,7 +25,7 @@ Usage
 Include `peopletools` as a dependency in your cookbook's `metadata.rb`.
 
 ```
-depends 'peopletools', '~> 2.2.0'
+depends 'peopletools', '~> 2.3.0'
 ```
 
 Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure a `['peopletools']['archive_repo']` attribute to point to the repository location.  Use the resources to deploy and configure PeopleTools.
@@ -92,6 +92,43 @@ Resource to configure tnsnames.ora.
 - `owner`: tnsnames.ora owner. Default: 'oracle'.
 - `path`: tnsnames.ora path. Default: "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}/network/admin".
 - `server`: Server type (DEDICATED | SHARED). Default: 'DEDICATED'.
+
+##### actions
+- `create`
+
+#### `peopletools_webserver_domain`
+Resource to configure webserver domain.
+
+##### properties
+- `admin_pwd`: Admin password. Required.
+- `admin_userid`: Admin userid. Default: 'system'.
+- `appserver_name`: Application server name. Default ''.
+- `appserver_conn_pwd`: Application server domain connection password. Default ''.
+- `auth_token_domain`: Authentication token domain. Default: ''.
+- `bea_home`: WebLogic home. Default: '/opt/oracle/psft/pt/bea'.
+- `domain_name`: Webserver domain name. Name Property.
+- `domain_type`: Domain type(NEW_DOMAIN | EXISTING_DOMAIN). Default: 'NEW_DOMAIN'.
+- `domain_user`: Domain user. Default: 'psadm2'.
+- `http_port`: HTTP port. Default: 80.
+- `https_port`: HTTPS port. Default: 443.
+- `igw_userid`: Integration gateway userid. Default: 'administrator'.
+- `igw_pwd`: Integration gateway password. Required.
+- `install_action`: Install action (CREATE_NEW_DOMAIN | REDEPLOY_PSAPP | REBUILD_DOMAIN | ADD_SITE | ADD_PSAPP_EXT). Default: 'CREATE_NEW_DOMAIN'.
+- `install_type`: Install type (SINGLE_SERVER_INSTALLATION | MULTI_SERVER_INSTALLATION). Default: 'SINGLE_SERVER_INSTALLATION'.
+- `jsl_port`: JSL port. Default: 9000.
+- `server_type`: Server type (weblogic | websphere). Default: 'weblogic'.
+- `setup_path`: PIA setup.sh path. Default: ::File.join(ps_home, 'setup/PsMpPIAInstall/setup.sh').
+- `ps_home`: PS Home. Required.
+- `ps_cfg_home`: PS Config Home. Required.
+- `psserver`: Comma separated list of servers in the format appserver:jslport. Default: ''.
+- `reports_dir`: Root directory for report repository. Default: ::File.join(ps_cfg_home, 'PeopleSoft Internet Architecture/psreports').
+- `response_file_path`: Response file path. Default: '/tmp/webserver-response'.
+- `template_cookbook`: Cookbook containing response file template to enable overriding in wrapper cookbook. Default: 'peopletools'.
+- `template_source`: Response file template source to enable overriding in wrapper cookbook. Default: 'config/webserver_domain/webserver-response.erb'.
+- `website_name`: Website name. Default: 'ps'.
+- `web_profile_name`: Web profile name. Default: 'PROD'.
+- `web_profile_pwd`: Web profile password. Required.
+- `web_profile_userid`: Web profile userid. Default: 'PTWEBSERVER'.
 
 ##### actions
 - `create`
@@ -243,7 +280,7 @@ Examples
 --------
 #### Application server recipe
 ```
-# users/groups and system settings
+# users, groups, and system settings
 include_recipe "#{cookbook_name}::_common"
 
 # oracle_client
@@ -386,8 +423,8 @@ end
 
 #### Web server recipe
 ```
-# users/groups and system settings
-include_recipe "#{cookbook_name}::system"
+# users, groups, and system settings
+include_recipe "#{cookbook_name}::_common"
 
 # ps_home
 peopletools_ps_home '8.55.05' do
@@ -410,6 +447,17 @@ peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
   ps_home_version '8.55.05'
   tuxedo_version '12.1.3.0.0'
+end
+
+# webserver domain
+peopletools_webserver_domain 'KIT' do
+  admin_pwd 'admin_pwd'
+  appserver_name 'localhost'
+  igw_pwd 'igw_pwd1'
+  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_cfg_home '/home/psadm2'
+  sensitive true
+  web_profile_pwd 'web_profile_pwd'
 end
 ```
 

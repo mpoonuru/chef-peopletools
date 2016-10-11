@@ -42,3 +42,14 @@ peopletools_bashrc 'psadm2' do
   ps_home_version '8.55.05'
   tuxedo_version '12.1.3.0.0'
 end
+
+# webserver domain
+peopletools_webserver_domain 'KIT' do
+  admin_pwd 'admin_pwd'
+  appserver_name 'localhost'
+  igw_pwd 'igw_pwd1'
+  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_cfg_home '/home/psadm2'
+  sensitive true
+  web_profile_pwd 'web_profile_pwd'
+end
