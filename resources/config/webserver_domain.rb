@@ -19,11 +19,11 @@
 
 resource_name :peopletools_webserver_domain
 default_action :create
-property :admin_pwd, String, required: true
+property :admin_password, String, required: true
 property :admin_userid, String, default: 'system'
 property :appserver_name, String, default: ''
-property :appserver_conn_pwd, String, default: ''
-property :auth_token_domain, String, default: ''
+property :appserver_connection_password, String, default: ''
+property :authentication_token_domain, String, default: ''
 property :bea_home, String, default: '/opt/oracle/psft/pt/bea'
 property :domain_name, String, name_property: true
 property :domain_type, equal_to: %w(NEW_DOMAIN EXISTING_DOMAIN), default: 'NEW_DOMAIN'
@@ -31,7 +31,7 @@ property :domain_user, String, default: 'psadm2'
 property :http_port, Integer, default: 80
 property :https_port, Integer, default: 443
 property :igw_userid, String, default: 'administrator'
-property :igw_pwd, String, required: true
+property :igw_password, String, required: true
 property :install_action, equal_to: %w(CREATE_NEW_DOMAIN REDEPLOY_PSAPP REBUILD_DOMAIN ADD_SITE ADD_PSAPP_EXT), default: 'CREATE_NEW_DOMAIN'
 property :install_type, equal_to: %w(SINGLE_SERVER_INSTALLATION MULTI_SERVER_INSTALLATION), default: 'SINGLE_SERVER_INSTALLATION'
 property :jsl_port, Integer, default: 9000
@@ -46,7 +46,7 @@ property :template_cookbook, String, default: 'peopletools'
 property :template_source, String, default: 'config/webserver_domain/webserver-response.erb'
 property :website_name, String, default: 'ps'
 property :web_profile_name, String, default: 'PROD'
-property :web_profile_pwd, String, required: true
+property :web_profile_password, String, required: true
 property :web_profile_userid, String, default: 'PTWEBSERVER'
 
 action :create do
@@ -59,17 +59,17 @@ action :create do
     source template_source
     variables(
       admin_userid: admin_userid,
-      admin_pwd: admin_pwd,
+      admin_password: admin_password,
       appserver_name: appserver_name,
-      appserver_conn_pwd: appserver_conn_pwd,
-      auth_token_domain: auth_token_domain,
+      appserver_connection_password: appserver_connection_password,
+      authentication_token_domain: authentication_token_domain,
       bea_home: bea_home,
       domain_name: domain_name,
       domain_type: domain_type,
       http_port: http_port,
       https_port: https_port,
       igw_userid: igw_userid,
-      igw_pwd: igw_pwd,
+      igw_password: igw_password,
       install_action: install_action,
       install_type: install_type,
       jsl_port: jsl_port,
@@ -77,7 +77,7 @@ action :create do
       reports_dir: reports_dir,
       server_type: server_type,
       web_profile_name: web_profile_name,
-      web_profile_pwd: web_profile_pwd,
+      web_profile_password: web_profile_password,
       web_profile_userid: web_profile_userid,
       website_name: website_name
     )
