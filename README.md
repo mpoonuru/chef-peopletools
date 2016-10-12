@@ -25,7 +25,7 @@ Usage
 Include `peopletools` as a dependency in your cookbook's `metadata.rb`.
 
 ```
-depends 'peopletools', '~> 2.3.0'
+depends 'peopletools', '~> 2.3.2'
 ```
 
 Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure a `['peopletools']['archive_repo']` attribute to point to the repository location.  Use the resources to deploy and configure PeopleTools.
@@ -303,7 +303,7 @@ end
 peopletools_tuxedo '12.1.3.0.0' do
   archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
   sensitive true
-  tlisten_password 'password'
+  tlisten_password 'tlisten_password'
 end
 
 # .bashrc
@@ -341,13 +341,13 @@ peopletools_appserver_domain 'KIT' do
     node['peopletools']['db_name'], # Database name
     'ORACLE', # Database type
     'opr_user_id', # OPR user ID
-    'opr_user_pwd', # OPR user password
+    'opr_user_password', # OPR user password
     'KIT', # Domain ID
     '_____', # Add to path
     'connect_id', # Connect ID
-    'connect_pwd', # Connect password
+    'connect_password', # Connect password
     '_____', # Server name
-    'domain_connection_pwd', # Domain connection password
+    'domain_connection_password', # Domain connection password
     'ENCRYPT' # (NO)ENCRYPT passwords
   ]
 end
@@ -378,7 +378,7 @@ end
 peopletools_tuxedo '12.1.3.0.0' do
   archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
   sensitive true
-  tlisten_password 'password'
+  tlisten_password 'tlisten_password'
 end
 
 # .bashrc
@@ -408,14 +408,14 @@ peopletools_prcs_domain 'KIT' do
     'ORACLE', # Database type
     'PSUNX', # Prcs server
     'opr_user_id', # OPR user ID
-    'opr_user_pwd', # OPR user password
+    'opr_user_password', # OPR user password
     'connect_id', # Connect ID
-    'connect_pwd', # Connect password
+    'connect_password', # Connect password
     '_____', # Server name
     '%PS_SERVDIR%/log_output', # Log/output directory
     '%PS_HOME%/bin/sqr/%PS_DB%/bin', # SQRBIN
     '_____', # Add to path
-    'domain_connection_pwd', # Domain connection password
+    'domain_connection_password', # Domain connection password
     'ENCRYPT' # (NO)ENCRYPT passwords
   ]
 end
@@ -451,13 +451,13 @@ end
 
 # webserver domain
 peopletools_webserver_domain 'KIT' do
-  admin_pwd 'admin_pwd'
+  admin_password 'admin_password'
   appserver_name 'localhost'
-  igw_pwd 'igw_pwd1'
+  igw_password 'igw_password'
   ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
   ps_cfg_home '/home/psadm2'
   sensitive true
-  web_profile_pwd 'web_profile_pwd'
+  web_profile_password 'web_profile_password'
 end
 ```
 

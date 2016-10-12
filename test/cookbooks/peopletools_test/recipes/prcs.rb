@@ -39,7 +39,7 @@ end
 # tuxedo
 peopletools_tuxedo '12.1.3.0.0' do
   archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
-  tlisten_password 'password'
+  tlisten_password 'tlisten_password'
   sensitive true
 end
 
@@ -69,14 +69,14 @@ peopletools_prcs_domain 'KIT' do
     'ORACLE', # Database type
     'PSUNX', # Prcs server
     'opr_user_id', # OPR user ID
-    'opr_user_pwd', # OPR user password
+    'opr_user_password', # OPR user password
     'connect_id', # Connect ID
-    'connect_pwd', # Connect password
+    'connect_password', # Connect password
     '_____', # Server name
     '%PS_SERVDIR%/log_output', # Log/output directory
     '%PS_HOME%/bin/sqr/%PS_DB%/bin', # SQRBIN
     '_____', # Add to path
-    'domain_connection_pwd', # Domain connection password
+    'domain_connection_password', # Domain connection password
     'ENCRYPT' # (NO)ENCRYPT passwords
   ]
   sensitive true

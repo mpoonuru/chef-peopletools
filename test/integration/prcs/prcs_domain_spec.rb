@@ -17,13 +17,13 @@ describe file('/home/psadm2/appserv/prcs/KIT/psprcs.cfg') do
   its('content') { should match(/DBType=ORACLE/) }
   its('content') { should match(/PrcsServerName=PSUNX/) }
   its('content') { should match(/UserId=opr_user_id/) }
-  its('content') { should match(/UserPswd=jDXqb7hxyNrGCu6XFJkZkFMWzwxtB7F2J0XLjpIWp3o=/) }
+  its('content') { should match(/UserPswd=jDXqb7hxyNrGCviAZ40ZjDdMhnh5upc2L5EOUCtI0W8=/) }
   its('content') { should match(/ConnectId=connect_id/) }
-  its('content') { should match(/ConnectPswd=gCr2Xqhh2ffaGQGC7N0uatQ0QzGtlnaZ25ySC26P/) }
+  its('content') { should match(%r{ConnectPswd=gCr2Xqhh2ffaDxbxxO0DUad7IjStsAweK0kJ\/vnb}) }
   its('content') { should match(/LogDir=%PS_SERVDIR%\\log_output/) }
   its('content') { should match(%r{SQRBIN=%PS_HOME%\/bin\/sqr\/%PS_DB%\/bin}) }
   its('content') { should match(/Add to PATH=/) }
-  its('content') { should match(/DomainConnectionPwd=hyr1UaRs8stNYVB5aYZgVHCc0fsNCyMlcIYuZoe5/) }
+  its('content') { should match(/DomainConnectionPwd=hyr1UaRs8stNYVB5aYZgVHCc0e0aeBEE7MGkDhHg/) }
 end
 
 # psprcsrv.ubb
