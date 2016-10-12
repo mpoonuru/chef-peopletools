@@ -45,11 +45,12 @@ end
 
 # webserver domain
 peopletools_webserver_domain 'KIT' do
-  admin_pwd 'admin_pwd'
+  admin_password 'admin_password'
+  appserver_connection_password 'appserver_connection_password'
   appserver_name 'localhost'
-  igw_pwd 'igw_pwd1'
+  igw_password 'igw_password'
   ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
   ps_cfg_home '/home/psadm2'
   sensitive true
-  web_profile_pwd 'web_profile_pwd'
+  web_profile_password 'web_profile_password'
 end

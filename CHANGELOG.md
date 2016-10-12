@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.3.1 (2016-10-12)
+------------------
+- Updated webserver_domain resource properties.
+
 2.3.0 (2016-10-11)
 ------------------
 - Added webserver_domain resource.

@@ -100,11 +100,11 @@ Resource to configure tnsnames.ora.
 Resource to configure webserver domain.
 
 ##### properties
-- `admin_pwd`: Admin password. Required.
+- `admin_password`: Admin password. Required.
 - `admin_userid`: Admin userid. Default: 'system'.
 - `appserver_name`: Application server name. Default ''.
-- `appserver_conn_pwd`: Application server domain connection password. Default ''.
-- `auth_token_domain`: Authentication token domain. Default: ''.
+- `appserver_connection_password`: Application server domain connection password. Default ''.
+- `authentication_token_domain`: Authentication token domain. Default: ''.
 - `bea_home`: WebLogic home. Default: '/opt/oracle/psft/pt/bea'.
 - `domain_name`: Webserver domain name. Name Property.
 - `domain_type`: Domain type(NEW_DOMAIN | EXISTING_DOMAIN). Default: 'NEW_DOMAIN'.
@@ -112,7 +112,7 @@ Resource to configure webserver domain.
 - `http_port`: HTTP port. Default: 80.
 - `https_port`: HTTPS port. Default: 443.
 - `igw_userid`: Integration gateway userid. Default: 'administrator'.
-- `igw_pwd`: Integration gateway password. Required.
+- `igw_password`: Integration gateway password. Required.
 - `install_action`: Install action (CREATE_NEW_DOMAIN | REDEPLOY_PSAPP | REBUILD_DOMAIN | ADD_SITE | ADD_PSAPP_EXT). Default: 'CREATE_NEW_DOMAIN'.
 - `install_type`: Install type (SINGLE_SERVER_INSTALLATION | MULTI_SERVER_INSTALLATION). Default: 'SINGLE_SERVER_INSTALLATION'.
 - `jsl_port`: JSL port. Default: 9000.
@@ -127,7 +127,7 @@ Resource to configure webserver domain.
 - `template_source`: Response file template source to enable overriding in wrapper cookbook. Default: 'config/webserver_domain/webserver-response.erb'.
 - `website_name`: Website name. Default: 'ps'.
 - `web_profile_name`: Web profile name. Default: 'PROD'.
-- `web_profile_pwd`: Web profile password. Required.
+- `web_profile_password`: Web profile password. Required.
 - `web_profile_userid`: Web profile userid. Default: 'PTWEBSERVER'.
 
 ##### actions
