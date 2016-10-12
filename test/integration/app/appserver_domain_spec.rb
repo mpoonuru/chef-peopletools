@@ -17,11 +17,11 @@ describe file('/home/psadm2/appserv/KIT/psappsrv.cfg') do
   its('content') { should match(/DBName=KITCHEN/) }
   its('content') { should match(/DBType=ORACLE/) }
   its('content') { should match(/UserId=opr_user_id/) }
-  its('content') { should match(%r{UserPswd=jDXqb7hxyNrGCu6XFLE\/qovRfxFqMxNmH\/e3k6\/C6ic=}) }
+  its('content') { should match(/UserPswd=jDXqb7hxyNrGCviAZ40ZjDdMrl5D1K0KB0eqtWgtpBc=/) }
   its('content') { should match(/Add to PATH=/) }
   its('content') { should match(/ConnectId=connect_id/) }
-  its('content') { should match(/ConnectPswd=gCr2Xqhh2ffaGQGC7N0uatQ0Ag6TqEyyGF5PlRK3/) }
-  its('content') { should match(/DomainConnectionPwd=hyr1UaRs8stNYVB5aYZgVHCc0fsNCyMlcIYuZoe5/) }
+  its('content') { should match(/ConnectPswd=gCr2Xqhh2ffaDxbxxO0DUad7IjStsAxfLiJ03FkO/) }
+  its('content') { should match(/DomainConnectionPwd=hyr1UaRs8stNYVB5aYZgVHCc0e0aeBEE7MGkDhHg/) }
 end
 
 # psappsrv.ubb
