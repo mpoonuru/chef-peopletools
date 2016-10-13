@@ -125,10 +125,10 @@ Resource to configure webserver domain.
 - `response_file_path`: Response file path. Default: '/tmp/webserver-response'.
 - `template_cookbook`: Cookbook containing response file template to enable overriding in wrapper cookbook. Default: 'peopletools'.
 - `template_source`: Response file template source to enable overriding in wrapper cookbook. Default: 'config/webserver_domain/webserver-response.erb'.
-- `website_name`: Website name. Default: 'ps'.
 - `web_profile_name`: Web profile name. Default: 'PROD'.
 - `web_profile_password`: Web profile password. Required.
 - `web_profile_userid`: Web profile userid. Default: 'PTWEBSERVER'.
+- `website_name`: Website name. Default: 'ps'.
 
 ##### actions
 - `create`
