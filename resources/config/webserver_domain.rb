@@ -44,10 +44,10 @@ property :reports_dir, String, default: lazy { ::File.join(ps_cfg_home, 'PeopleS
 property :response_file_path, String, default: '/tmp/webserver-response'
 property :template_cookbook, String, default: 'peopletools'
 property :template_source, String, default: 'config/webserver_domain/webserver-response.erb'
-property :website_name, String, default: 'ps'
 property :web_profile_name, String, default: 'PROD'
 property :web_profile_password, String, required: true
 property :web_profile_userid, String, default: 'PTWEBSERVER'
+property :website_name, String, default: 'ps'
 
 action :create do
   # response file

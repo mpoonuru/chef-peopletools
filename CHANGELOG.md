@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.3.3 (2016-10-13)
+------------------
+- Updated order of webserver_domain properties.
+
 2.3.2 (2016-10-12)
 ------------------
 - Updated examples and tests to use different passwords.
