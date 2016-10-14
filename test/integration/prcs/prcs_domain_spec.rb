@@ -3,14 +3,14 @@ describe file('/home/psadm2/appserv/prcs/KIT') do
   it { should be_directory }
   its('owner') { should eq 'psadm2' }
   its('group') { should eq 'oinstall' }
-  its('mode') { should eq 0o775 }
+  its('mode') { should cmp '0775' }
 end
 
 # psprcs.cfg
 describe file('/home/psadm2/appserv/prcs/KIT/psprcs.cfg') do
   its('owner') { should eq 'psadm2' }
   its('group') { should eq 'oinstall' }
-  its('mode') { should eq 0o775 }
+  its('mode') { should cmp '0775' }
   its('content') { should match(/Allow Dynamic Changes=Y/) }
   its('content') { should match(/SMTPServer=localhost/) }
   its('content') { should match(/DBName=KITCHEN/) }
@@ -30,7 +30,7 @@ end
 describe file('/home/psadm2/appserv/prcs/KIT/psprcsrv.ubb') do
   its('owner') { should eq 'psadm2' }
   its('group') { should eq 'oinstall' }
-  its('mode') { should eq 0o644 }
+  its('mode') { should cmp '0644' }
   its('content') { should match(/\{APPENG\}:\s*TRUE/) }
   its('content') { should match(/\{MSTRSRV\}:\s*TRUE/) }
   its('content') { should match(/\{PPM\}:\s*FALSE/) }

@@ -2,7 +2,7 @@
 describe file('/home/psadm2/.bashrc') do
   its('owner') { should eq 'psadm2' }
   its('group') { should eq 'oinstall' }
-  its('mode') { should eq 0644 }
+  its('mode') { should cmp '0644' }
   its('content') { should match(%r{export _JAVA_OPTIONS=-Djava\.security\.egd=file:\/dev\/\.\/urandom}) }
   its('content') { should match(%r{export COBDIR=\/opt\/microfocus\/cobol}) }
   its('content') { should match(%r{export ORACLE_HOME=\/opt\/oracle\/psft\/pt\/oracle-client/12\.1\.0\.2}) }

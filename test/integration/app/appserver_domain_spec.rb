@@ -3,14 +3,14 @@ describe file('/home/psadm2/appserv/KIT') do
   it { should be_directory }
   its('owner') { should eq 'psadm2' }
   its('group') { should eq 'oinstall' }
-  its('mode') { should eq 0o755 }
+  its('mode') { should cmp '0755' }
 end
 
 # psappsrv.cfg
 describe file('/home/psadm2/appserv/KIT/psappsrv.cfg') do
   its('owner') { should eq 'psadm2' }
   its('group') { should eq 'oinstall' }
-  its('mode') { should eq 0o755 }
+  its('mode') { should cmp '0755' }
   its('content') { should match(/Allow Dynamic Changes=Y/) }
   its('content') { should match(/Domain ID=KIT/) }
   its('content') { should match(/SMTPServer=localhost/) }
@@ -28,7 +28,7 @@ end
 describe file('/home/psadm2/appserv/KIT/psappsrv.ubb') do
   its('owner') { should eq 'psadm2' }
   its('group') { should eq 'oinstall' }
-  its('mode') { should eq 0o644 }
+  its('mode') { should cmp '0644' }
   its('content') { should match(/\{PUBSUB\}:\s*FALSE/) }
   its('content') { should match(/\{QUICKSRV\}:\s*FALSE/) }
   its('content') { should match(/\{QUERYSRV\}:\s*TRUE/) }
