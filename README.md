@@ -25,7 +25,7 @@ Usage
 Include `peopletools` as a dependency in your cookbook's `metadata.rb`.
 
 ```
-depends 'peopletools', '~> 2.3.2'
+depends 'peopletools', '~> 2.3.4'
 ```
 
 Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure a `['peopletools']['archive_repo']` attribute to point to the repository location.  Use the resources to deploy and configure PeopleTools.
@@ -122,9 +122,9 @@ Resource to configure webserver domain.
 - `ps_cfg_home`: PS Config Home. Required.
 - `psserver`: Comma separated list of servers in the format appserver:jslport. Default: ''.
 - `reports_dir`: Root directory for report repository. Default: ::File.join(ps_cfg_home, 'PeopleSoft Internet Architecture/psreports').
+- `response_file_cookbook`: Cookbook containing response file template to enable overriding in wrapper cookbook. Default: 'peopletools'.
 - `response_file_path`: Response file path. Default: '/tmp/webserver-response'.
-- `template_cookbook`: Cookbook containing response file template to enable overriding in wrapper cookbook. Default: 'peopletools'.
-- `template_source`: Response file template source to enable overriding in wrapper cookbook. Default: 'config/webserver_domain/webserver-response.erb'.
+- `response_file_source`: Response file template source to enable overriding in wrapper cookbook. Default: 'config/webserver_domain/webserver-response.erb'.
 - `web_profile_name`: Web profile name. Default: 'PROD'.
 - `web_profile_password`: Web profile password. Required.
 - `web_profile_userid`: Web profile userid. Default: 'PTWEBSERVER'.

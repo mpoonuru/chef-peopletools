@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.3.4 (2016-10-14)
+------------------
+- Renamed webserver_domain response_file properties for clarity.
+
 2.3.3 (2016-10-13)
 ------------------
 - Updated order of webserver_domain properties.
