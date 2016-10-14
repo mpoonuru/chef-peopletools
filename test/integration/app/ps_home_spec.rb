@@ -4,7 +4,7 @@
 ].each do |d|
   describe file(d) do
     it { should be_directory }
-    it { should be_mode 0755 }
+    its('mode') { should cmp '0755' }
   end
 end
 

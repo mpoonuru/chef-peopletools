@@ -5,9 +5,9 @@
 ].each do |d|
   describe file(d) do
     it { should be_directory }
-    its('mode') { should eq 0755 }
     its('owner') { should eq 'psadm1' }
     its('group') { should eq 'oinstall' }
+    its('mode') { should cmp '0755' }
   end
 end
 

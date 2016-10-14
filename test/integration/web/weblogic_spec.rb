@@ -1,9 +1,9 @@
 # directories
 describe file('/opt/oracle/psft/pt') do
   it { should be_directory }
-  its('mode') { should eq 0755 }
   its('owner') { should eq 'psadm1' }
   its('group') { should eq 'oinstall' }
+  its('mode') { should cmp '0755' }
 end
 
 ['/opt/oracle/psft/pt/bea/',
@@ -11,9 +11,9 @@ end
 ].each do |d|
   describe file(d) do
     it { should be_directory }
-    its('mode') { should eq 0775 }
     its('owner') { should eq 'psadm1' }
     its('group') { should eq 'oinstall' }
+    its('mode') { should cmp '0775' }
   end
 end
 
