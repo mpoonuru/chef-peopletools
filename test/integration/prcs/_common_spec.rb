@@ -1,5 +1,6 @@
 # kernel parameters
-{ 'kernel.core_uses_pid' => 1,
+{
+  'kernel.core_uses_pid' => 1,
   'kernel.msgmnb' => 65_538,
   'kernel.msgmni' => 1024,
   'kernel.msgmax' => 65_536,
@@ -16,7 +17,7 @@
 end
 
 describe kernel_parameter('net.ipv4.ip_local_port_range') do
-  its('value') { should match(/10000\t65500/) }
+  its('value') { should match '10000\t65500' }
 end
 
 # groups
@@ -27,7 +28,8 @@ end
 end
 
 # users
-{ 'psadm1' => 'oinstall',
+{
+  'psadm1' => 'oinstall',
   'psadm2' => 'oinstall',
   'psadm3' => 'appinst',
   'oracle' => 'oinstall'
@@ -41,15 +43,19 @@ end
 # limits
 %w(psft appinst).each do |g|
   describe file("/etc/security/limits.d/#{g}.conf") do
-    its('content') { should match(/#{g} hard nofile\s+65536/) }
-    its('content') { should match(/#{g} soft nofile\s+65536/) }
-    its('content') { should match(/#{g} hard nproc\s+65536/) }
-    its('content') { should match(/#{g} soft nproc\s+65536/) }
-    its('content') { should match(/#{g} hard core\s+unlimited/) }
-    its('content') { should match(/#{g} soft core\s+unlimited/) }
-    its('content') { should match(/#{g} hard memlock\s+50000/) }
-    its('content') { should match(/#{g} soft memlock\s+50000/) }
-    its('content') { should match(/#{g} hard stack\s+102400/) }
-    its('content') { should match(/#{g} soft stack\s+102400/) }
+    [
+      "#{g} hard nofile\s+65536",
+      "#{g} soft nofile\s+65536",
+      "#{g} hard nproc\s+65536",
+      "#{g} soft nproc\s+65536",
+      "#{g} hard core\s+unlimited",
+      "#{g} soft core\s+unlimited",
+      "#{g} hard memlock\s+50000",
+      "#{g} soft memlock\s+50000",
+      "#{g} hard stack\s+102400",
+      "#{g} soft stack\s+102400"
+    ].each do |c|
+      its('content') { should match c }
+    end
   end
 end

@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.3.6 (2016-10-28)
+------------------
+- Tidied up InSpec tests.
+
 2.3.5 (2016-10-14)
 ------------------
 - Tidied up InSpec tests.
