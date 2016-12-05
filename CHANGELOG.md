@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.3.7 (2016-12-05)
+------------------
+- Added psserver variable to the webserver_domain template.
+
 2.3.6 (2016-10-28)
 ------------------
 - Tidied up InSpec tests.
