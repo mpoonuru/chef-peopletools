@@ -74,6 +74,7 @@ action :create do
       install_type: install_type,
       jsl_port: jsl_port,
       ps_cfg_home: ps_cfg_home,
+      psserver: psserver,
       reports_dir: reports_dir,
       server_type: server_type,
       web_profile_name: web_profile_name,
