@@ -237,7 +237,7 @@ Resource to deploy Oracle WebLogic.
 - `deploy_location`: Deploy location. Default: '/opt/oracle/psft/pt/bea'.
 - `deploy_user`: Deploy user. Default: 'psadm1'.
 - `deploy_group`: Deploy group. Default: 'oinstall'.
-- `home_name`: Oracle Client inventory home name. Default: 'OraWL1221Home'.
+- `home_name`: Oracle Client inventory home name. Default: 'OraWLHome'.
 - `inventory_location`: Inventory location. Default: '/opt/oracle/psft/db/oraInventory'.
 - `inventory_user`: Inventory user. Default: 'oracle'.
 - `inventory_group`: Inventory group. Default: 'oinstall'.
