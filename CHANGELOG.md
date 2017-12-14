@@ -1,6 +1,10 @@
 peopletools Cookbook CHANGELOG
 ==============================
 
+2.4.0 (2017-12-14)
+------------------
+- Added 8.56 functionality and rubocop fixes.
+
 2.3.7 (2016-12-05)
 ------------------
 - Added psserver variable to the webserver_domain template.

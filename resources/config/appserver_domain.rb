@@ -29,7 +29,7 @@ property :port_settings, Array, default: []
 property :ps_home, String, required: true
 property :ps_cfg_home, String, required: true
 property :startup_settings, Array, required: true
-property :template_type, equal_to: %w(small medium large developer), default: 'small'
+property :template_type, equal_to: %w[small medium large developer], default: 'small'
 
 action :create do
   # expand config_settings hash

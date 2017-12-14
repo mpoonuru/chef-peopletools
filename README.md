@@ -218,7 +218,7 @@ Resource to deploy Oracle Tuxedo.
 - `deploy_location`: Deploy location. Default: '/opt/oracle/psft/pt/bea/tuxedo'.
 - `deploy_user`: Deploy user. Default: 'psadm1'.
 - `deploy_group`: Deploy group. Default: 'oinstall'.
-- `home_name`: Oracle Client inventory home name. Default: 'OraTux1213Home'.
+- `home_name`: Oracle Client inventory home name. Default: 'OraTuxHome'.
 - `inventory_location`: Inventory location. Default: '/opt/oracle/psft/db/oraInventory'.
 - `inventory_user`: Inventory user. Default: 'oracle'.
 - `inventory_group`: Inventory group. Default: 'oinstall'.
@@ -237,7 +237,7 @@ Resource to deploy Oracle WebLogic.
 - `deploy_location`: Deploy location. Default: '/opt/oracle/psft/pt/bea'.
 - `deploy_user`: Deploy user. Default: 'psadm1'.
 - `deploy_group`: Deploy group. Default: 'oinstall'.
-- `home_name`: Oracle Client inventory home name. Default: 'OraWL1213Home'.
+- `home_name`: Oracle Client inventory home name. Default: 'OraWL1221Home'.
 - `inventory_location`: Inventory location. Default: '/opt/oracle/psft/db/oraInventory'.
 - `inventory_user`: Inventory user. Default: 'oracle'.
 - `inventory_group`: Inventory group. Default: 'oinstall'.
@@ -295,13 +295,13 @@ peopletools_tnsnames '12.1.0.2' do
 end
 
 # ps_home
-peopletools_ps_home '8.55.05' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.55.05.tgz"
+peopletools_ps_home '8.56.04' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.04.tgz"
 end
 
 # tuxedo
-peopletools_tuxedo '12.1.3.0.0' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
+peopletools_tuxedo '12.2.2.0.0' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.2.2.0.0.tgz"
   sensitive true
   tlisten_password 'tlisten_password'
 end
@@ -309,8 +309,8 @@ end
 # .bashrc
 peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
-  ps_home_version '8.55.05'
-  tuxedo_version '12.1.3.0.0'
+  ps_home_version '8.56.04'
+  tuxedo_version '12.2.2.0.0'
 end
 
 # appserver domain
@@ -334,7 +334,7 @@ peopletools_appserver_domain 'KIT' do
     '{DOMAIN_GW}=No', # Domains Gateway
     '{SERVER_EVENTS}=No' # Push Notifications
   ]
-  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_home '/opt/oracle/psft/pt/ps_home8.56.04'
   ps_cfg_home '/home/psadm2'
   sensitive true
   startup_settings [
@@ -370,13 +370,13 @@ peopletools_tnsnames '12.1.0.2' do
 end
 
 # ps_home
-peopletools_ps_home '8.55.05' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.55.05.tgz"
+peopletools_ps_home '8.56.04' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.04.tgz"
 end
 
 # tuxedo
-peopletools_tuxedo '12.1.3.0.0' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
+peopletools_tuxedo '12.2.2.0.0' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.2.2.0.0.tgz"
   sensitive true
   tlisten_password 'tlisten_password'
 end
@@ -384,8 +384,8 @@ end
 # .bashrc
 peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
-  ps_home_version '8.55.05'
-  tuxedo_version '12.1.3.0.0'
+  ps_home_version '8.56.04'
+  tuxedo_version '12.2.2.0.0'
 end
 
 peopletools_prcs_domain 'KIT' do
@@ -400,7 +400,7 @@ peopletools_prcs_domain 'KIT' do
     '{DOMAIN_GW}=No', # Domains Gateway
     '{SERVER_EVENTS}=No' # Push Notifications
   ]
-  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_home '/opt/oracle/psft/pt/ps_home8.56.04'
   ps_cfg_home '/home/psadm2'
   sensitive true
   startup_settings [
@@ -427,26 +427,26 @@ end
 include_recipe "#{cookbook_name}::_common"
 
 # ps_home
-peopletools_ps_home '8.55.05' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.55.05.tgz"
+peopletools_ps_home '8.56.04' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.04.tgz"
 end
 
 # jdk
-peopletools_jdk '1.7.0_95' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-jdk1.7.0_95.tgz"
+peopletools_jdk '1.8.0_144' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-jdk1.8.0_144.tgz"
 end
 
 # weblogic
-peopletools_weblogic '12.1.3' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-weblogic12.1.3.tgz"
-  jdk_version '1.7.0_95'
+peopletools_weblogic '12.2.1' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-weblogic12.2.1.tgz"
+  jdk_version '1.8.0_144'
 end
 
 # .bashrc
 peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
-  ps_home_version '8.55.05'
-  tuxedo_version '12.1.3.0.0'
+  ps_home_version '8.56.04'
+  tuxedo_version '12.2.2.0.0'
 end
 
 # webserver domain
@@ -454,7 +454,7 @@ peopletools_webserver_domain 'KIT' do
   admin_password 'admin_password'
   appserver_name 'localhost'
   igw_password 'igw_password'
-  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_home '/opt/oracle/psft/pt/ps_home8.56.04'
   ps_cfg_home '/home/psadm2'
   sensitive true
   web_profile_password 'web_profile_password'
@@ -598,7 +598,7 @@ Testing
 .kitchen.yml is configured to use vagrant with centos-7.2.  Two environment variables must be configured to set the `['peopletools']['archive_repo']` and `['peopletools']['ps_app_home']['archive_repo']` attribute values.  These should be set to the location of the repositories which hold the archive files for PeopleTools and ps_app_home.  They can be different locations if required, and should not contain a trailing forward slash.  E.g.
 
 ```
-PEOPLETOOLS_ARCHIVE_REPO=http://artifacts.local.org/artifactory/software/oracle/peoplesoft/peopletools/8.55.05
+PEOPLETOOLS_ARCHIVE_REPO=http://artifacts.local.org/artifactory/software/oracle/peoplesoft/peopletools/8.56.04
 PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO=http://artifacts.local.org/artifactory/software/oracle/peoplesoft/finance/9.2.017
 ```
 

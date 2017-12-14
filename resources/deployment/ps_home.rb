@@ -20,7 +20,7 @@
 resource_name :peopletools_ps_home
 default_action :deploy
 property :archive_url, String, required: true
-property :db_platform, equal_to: %w(ORACLE DB2ODBC DB2UNIX), default: 'ORACLE'
+property :db_platform, equal_to: %w[ORACLE DB2ODBC DB2UNIX], default: 'ORACLE'
 property :deploy_location, String, default: lazy { "/opt/oracle/psft/pt/ps_home#{version}" }
 property :deploy_user, String, default: 'psadm1'
 property :deploy_group, String, default: 'oinstall'
@@ -28,7 +28,7 @@ property :extract_only, [TrueClass, FalseClass], default: false
 property :unicode_db, [TrueClass, FalseClass], default: true
 property :version, String, name_property: true
 
-action :deploy do
+action :deploy do # rubocop:disable Metrics/BlockLength
   # extract ps_home archive
   ark ::File.basename(deploy_location) do
     path ::File.dirname(deploy_location)
@@ -46,7 +46,7 @@ action :deploy do
   # ps_home directory permissions
   ruby_block "chmod_R_#{deploy_location}" do
     block do
-      FileUtils.chmod_R(0755, deploy_location)
+      FileUtils.chmod_R 0_755, deploy_location
     end
     only_if { ::File.directory?(deploy_location) }
     action :nothing
@@ -77,7 +77,7 @@ action :deploy do
       FileUtils.mv(::File.join(deploy_location, db_type, 'sqr'), deploy_location)
 
       # remove database directories
-      %w(ORA DB2 DBX).each do |d|
+      %w[ORA DB2 DBX].each do |d|
         FileUtils.remove_dir(::File.join(deploy_location, d), true)
       end
     end
@@ -99,4 +99,4 @@ action :deploy do
     not_if { extract_only || unicode_db || !::File.directory?(deploy_location) }
     action :nothing
   end
-end
+end # rubocop:enable Metrics/BlockLength

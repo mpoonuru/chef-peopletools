@@ -25,16 +25,18 @@ property :inventory_group, String, default: 'oinstall'
 property :inventory_minimum_ver, String, default: '2.1.0.6.0'
 property :inventory_saved_with, String, default: '13.2.0.0.0'
 
-action :create do
+action :create do # rubocop:disable Metrics/BlockLength
   # directories
-  [inventory_location,
-   ::File.join(inventory_location, 'logs'),
-   ::File.join(inventory_location, 'ContentsXML')
-  ].each do |d|
+  [
+    inventory_location,
+    ::File.join(inventory_location, 'logs'),
+    ::File.join(inventory_location, 'ContentsXML')
+  ]
+    .each do |d|
     directory d do
       owner inventory_user
       group inventory_group
-      mode 0770
+      mode '0770'
       recursive true
     end
   end
@@ -43,7 +45,7 @@ action :create do
   template ::File.join(inventory_location, 'oraInst.loc') do
     source 'deployment/inventory/oraInst.loc.erb'
     cookbook 'peopletools'
-    mode 0770
+    mode '0770'
     owner inventory_user
     group inventory_group
     variables(
@@ -57,7 +59,7 @@ action :create do
   template ::File.join(inventory_location, 'ContentsXML', 'inventory.xml') do
     source 'deployment/inventory/inventory.xml.erb'
     cookbook 'peopletools'
-    mode 0770
+    mode '0770'
     owner inventory_user
     group inventory_group
     variables(
@@ -66,4 +68,4 @@ action :create do
     )
     action :create_if_missing
   end
-end
+end # rubocop:enable Metrics/BlockLength

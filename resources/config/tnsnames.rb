@@ -22,14 +22,14 @@ default_action :create
 property :db_host, String, required: true
 property :db_name, String, required: true
 property :db_port, String, default: '1521'
-property :db_protocol, equal_to: %w(SDP TCP TCPS), default: 'TCP'
+property :db_protocol, equal_to: %w[SDP TCP TCPS], default: 'TCP'
 property :db_service_name, String, default: lazy { db_name }
 property :group, String, default: 'oinstall'
 property :mode, String, default: '0644'
 property :oracle_client_version, String, name_property: true
 property :owner, String, default: 'oracle'
 property :path, String, default: lazy { "/opt/oracle/psft/pt/oracle-client/#{oracle_client_version}/network/admin" }
-property :server, equal_to: %w(DEDICATED SHARED), default: 'DEDICATED'
+property :server, equal_to: %w[DEDICATED SHARED], default: 'DEDICATED'
 
 action :create do
   # tnsnames.ora file
