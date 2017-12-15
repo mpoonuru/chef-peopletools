@@ -41,7 +41,7 @@ action :deploy do
   # jdk directory permissions
   ruby_block "chmod_R_#{deploy_location}" do
     block do
-      FileUtils.chmod_R(0755, deploy_location)
+      FileUtils.chmod_R 0_755, deploy_location
     end
     only_if { ::File.directory?(deploy_location) }
     action :nothing

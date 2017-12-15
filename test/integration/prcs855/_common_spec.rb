@@ -21,7 +21,7 @@ describe kernel_parameter('net.ipv4.ip_local_port_range') do
 end
 
 # groups
-%w(psft appinst oinstall dba).each do |g|
+%w[psft appinst oinstall dba].each do |g|
   describe group(g) do
     it { should exist }
   end
@@ -41,7 +41,7 @@ end
 end
 
 # limits
-%w(psft appinst).each do |g|
+%w[psft appinst].each do |g|
   describe file("/etc/security/limits.d/#{g}.conf") do
     [
       "#{g} hard nofile\s+65536",

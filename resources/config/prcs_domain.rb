@@ -28,7 +28,7 @@ property :psadmin_path, String, default: lazy { ::File.join(ps_home, 'appserv/ps
 property :ps_home, String, required: true
 property :ps_cfg_home, String, required: true
 property :startup_settings, Array, required: true
-property :template_type, equal_to: %w(unix), default: 'unix'
+property :template_type, equal_to: %w[unix], default: 'unix'
 
 action :create do
   # expand config_settings hash

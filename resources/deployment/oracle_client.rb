@@ -30,7 +30,7 @@ property :inventory_group, String, default: 'oinstall'
 property :tmp_dir, String, default: lazy { "/opt/oracle/psft/pt/oracle-client/#{version}/oc_tmp" }
 property :version, String, name_property: true
 
-action :deploy do
+action :deploy do # rubocop:disable Metrics/BlockLength
   # package gcc required to fix issue with libclntshcore.so.12.1
   package 'gcc'
 
@@ -60,7 +60,7 @@ action :deploy do
   # oracle_client directory permissions
   ruby_block "chmod_R_#{deploy_location}" do
     block do
-      FileUtils.chmod_R(0755, deploy_location)
+      FileUtils.chmod_R 0_755, deploy_location
     end
     only_if { ::File.directory?(deploy_location) }
     action :nothing
@@ -70,7 +70,7 @@ action :deploy do
   directory tmp_dir do
     owner deploy_user
     group deploy_group
-    mode 0777
+    mode '0777'
     recursive true
     action :nothing
   end
@@ -95,4 +95,4 @@ action :deploy do
     end
     action :nothing
   end
-end
+end # rubocop:enable Metrics/BlockLength

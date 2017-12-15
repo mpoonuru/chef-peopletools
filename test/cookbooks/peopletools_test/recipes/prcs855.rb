@@ -18,6 +18,7 @@
 #
 
 # users, groups, and system settings
+include_recipe "#{cookbook_name}::fix_hostname"
 include_recipe "#{cookbook_name}::_common"
 
 # oracle_client
@@ -32,8 +33,8 @@ peopletools_tnsnames '12.1.0.2' do
 end
 
 # ps_home
-peopletools_ps_home '8.55.05' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.55.05.tgz"
+peopletools_ps_home '8.55.17' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.55.17.tgz"
 end
 
 # tuxedo
@@ -46,11 +47,11 @@ end
 # .bashrc
 peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
-  ps_home_version '8.55.05'
+  ps_home_version '8.55.17'
   tuxedo_version '12.1.3.0.0'
 end
 
-peopletools_prcs_domain 'KIT' do
+peopletools_prcs_domain 'KIT' do # rubocop:disable Metrics/BlockLength
   config_settings(
     '[Process Scheduler]' => ['Allow Dynamic Changes=Y'],
     '[SMTP Settings]' => ['SMTPServer=localhost']
@@ -62,7 +63,7 @@ peopletools_prcs_domain 'KIT' do
     '{DOMAIN_GW}=No', # Domains Gateway
     '{SERVER_EVENTS}=No' # Push Notifications
   ]
-  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_home '/opt/oracle/psft/pt/ps_home8.55.17'
   ps_cfg_home '/home/psadm2'
   startup_settings [
     node['peopletools']['db_name'], # Database name
@@ -80,4 +81,4 @@ peopletools_prcs_domain 'KIT' do
     'ENCRYPT' # (NO)ENCRYPT passwords
   ]
   sensitive true
-end
+end # rubocop:enable Metrics/BlockLength

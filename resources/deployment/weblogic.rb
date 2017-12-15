@@ -23,7 +23,7 @@ property :archive_url, String, required: true
 property :deploy_location, String, default: '/opt/oracle/psft/pt/bea'
 property :deploy_user, String, default: 'psadm1'
 property :deploy_group, String, default: 'oinstall'
-property :home_name, String, default: 'OraWL1213Home'
+property :home_name, String, default: 'OraWLHome'
 property :inventory_location, String, default: '/opt/oracle/psft/db/oraInventory'
 property :inventory_user, String, default: 'oracle'
 property :inventory_group, String, default: 'oinstall'
@@ -32,7 +32,7 @@ property :jdk_version, String, required: true
 property :tmp_dir, String, default: '/opt/oracle/psft/pt/wl_tmp'
 property :version, String, name_property: true
 
-action :deploy do
+action :deploy do # rubocop:disable Metrics/BlockLength
   # inventory
   peopletools_inventory inventory_location do
     inventory_location new_resource.inventory_location
@@ -46,7 +46,7 @@ action :deploy do
     url archive_url
     owner deploy_user
     group deploy_group
-    mode 0777
+    mode 0_777
     strip_components 0
     not_if { ::File.exist?(::File.join(deploy_location, 'wlserver')) }
     notifies :run, "ruby_block[chmod_R_#{tmp_dir}]", :immediately
@@ -61,7 +61,7 @@ action :deploy do
   # weblogic tmp directory permissions
   ruby_block "chmod_R_#{tmp_dir}" do
     block do
-      FileUtils.chmod_R(0777, tmp_dir)
+      FileUtils.chmod_R 0_777, tmp_dir
     end
     only_if { ::File.directory?(tmp_dir) }
     action :nothing
@@ -71,7 +71,7 @@ action :deploy do
   directory deploy_location do
     owner deploy_user
     group deploy_group
-    mode 0775
+    mode '0775'
     recursive true
     action :nothing
   end
@@ -91,7 +91,7 @@ action :deploy do
   # weblogic directory permissions
   ruby_block "chmod_R_#{deploy_location}" do
     block do
-      FileUtils.chmod_R(0775, deploy_location)
+      FileUtils.chmod_R 0_775, deploy_location
     end
     only_if { ::File.directory?(deploy_location) }
     action :nothing
@@ -100,7 +100,7 @@ action :deploy do
   # tuxedo directory permissions
   ruby_block "chmod_R_#{::File.join(deploy_location, 'tuxedo')}" do
     block do
-      FileUtils.chmod_R(0755, ::File.join(deploy_location, 'tuxedo'))
+      FileUtils.chmod_R 0_755, ::File.join(deploy_location, 'tuxedo')
     end
     only_if { ::File.directory?(::File.join(deploy_location, 'tuxedo')) }
     action :nothing
@@ -113,4 +113,4 @@ action :deploy do
     recursive true
     action :nothing
   end
-end
+end # rubocop:enable Metrics/BlockLength

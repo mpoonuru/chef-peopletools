@@ -1,13 +1,11 @@
 # directories
 [
   '/opt/oracle/psft/pt',
-  '/opt/oracle/psft/pt/bea/tuxedo',
-  '/opt/oracle/psft/pt/bea/tuxedo/tuxedo12.1.3.0.0'
+  '/opt/oracle/psft/pt/oracle-client/12.1.0.2',
+  '/opt/oracle/psft/pt/oracle-client/12.1.0.2/bin'
 ].each do |d|
   describe file(d) do
     it { should be_directory }
-    its('owner') { should eq 'psadm1' }
-    its('group') { should eq 'oinstall' }
     its('mode') { should cmp '0755' }
   end
 end
@@ -23,12 +21,17 @@ end
   end
 end
 
-# tuxedo home in inventory
+# oracle_client home in inventory
 describe file('/opt/oracle/psft/db/oraInventory/ContentsXML/inventory.xml') do
-  its('content') { should match '\<HOME NAME="OraTux1213Home" LOC="/opt/oracle/psft/pt/bea/tuxedo" TYPE="O"' }
+  its('content') { should match '\<HOME NAME="OraClient12cHome" LOC="/opt/oracle/psft/pt/oracle-client/12\.1\.0\.2" TYPE="O"' }
 end
 
-# tuxedo runInstaller
-describe file('/opt/oracle/psft/pt/bea/tuxedo/oui/bin/runInstaller') do
+# oracle_client runInstaller
+describe file('/opt/oracle/psft/pt/oracle-client/12.1.0.2/oui/bin/runInstaller') do
   it { should be_file }
+end
+
+# oracle_client tmp directory
+describe file('/opt/oracle/psft/pt/oracle-client/12.1.0.2/oc_tmp') do
+  it { should_not exist }
 end

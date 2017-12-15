@@ -31,13 +31,7 @@ end
 
 # weblogic home in inventory
 describe file('/opt/oracle/psft/db/oraInventory/ContentsXML/inventory.xml') do
-  its('content') { should match '\<HOME NAME="OraWL1213Home" LOC="/opt/oracle/psft/pt/bea" TYPE="O"' }
-end
-
-# weblogic .product.properties
-describe file('/opt/oracle/psft/pt/bea/wlserver/.product.properties') do
-  its('content') { should match 'JAVA_HOME=/opt/oracle/psft/pt/jdk1\.7\.0_95' }
-  its('content') { should match 'PLATFORMHOME=/opt/oracle/psft/pt/bea/wlserver' }
+  its('content') { should match '\<HOME NAME="OraWLHome" LOC="/opt/oracle/psft/pt/bea" TYPE="O"' }
 end
 
 # weblogic tmp directory

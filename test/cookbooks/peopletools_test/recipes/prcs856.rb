@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: peopletools_test
-# Recipe:: app
+# Recipe:: prcs
 #
 # Copyright 2016 University of Derby
 #
@@ -18,6 +18,7 @@
 #
 
 # users, groups, and system settings
+include_recipe "#{cookbook_name}::fix_hostname"
 include_recipe "#{cookbook_name}::_common"
 
 # oracle_client
@@ -32,13 +33,19 @@ peopletools_tnsnames '12.1.0.2' do
 end
 
 # ps_home
-peopletools_ps_home '8.55.05' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.55.05.tgz"
+peopletools_ps_home '8.56.04' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.04.tgz"
+end
+
+# jdk
+peopletools_jdk '1.8.0_144' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-jdk1.8.0_144.tgz"
 end
 
 # tuxedo
-peopletools_tuxedo '12.1.3.0.0' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.1.3.0.0.tgz"
+peopletools_tuxedo '12.2.2.0.0' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.2.2.0.0.tgz"
+  jdk_location '/opt/oracle/psft/pt/jdk1.8.0_144'
   tlisten_password 'tlisten_password'
   sensitive true
 end
@@ -46,44 +53,38 @@ end
 # .bashrc
 peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
-  ps_home_version '8.55.05'
-  tuxedo_version '12.1.3.0.0'
+  ps_home_version '8.56.04'
+  tuxedo_version '12.2.2.0.0'
 end
 
-peopletools_appserver_domain 'KIT' do
+peopletools_prcs_domain 'KIT' do # rubocop:disable Metrics/BlockLength
   config_settings(
-    '[Domain Settings]' => ['Allow Dynamic Changes=Y', 'Domain ID=KIT'],
+    '[Process Scheduler]' => ['Allow Dynamic Changes=Y'],
     '[SMTP Settings]' => ['SMTPServer=localhost']
   )
   feature_settings [
-    '{PUBSUB}=No', # Pub/Sub Servers
-    '{QUICKSRV}=No', # Quick Server
-    '{QUERYSRV}=Yes', # Query Servers
-    '{JOLT}=Yes', # Jolt
-    '{JRAD}=No', # Jolt Relay
-    '{WSL}=Yes', # WSL
-    '{DBGSRV}=No', # PC Debugger
-    '{RENSRV}=No', # Event Notification
-    '{MCF}=No', # MCF Servers
+    '{APPENG}=Yes', # App Engine
+    '{MSTRSRV}=Yes', # Master Scheduler
     '{PPM}=No', # Perf Collator
-    '{ANALYTICSRV}=No', # Analytic Servers
     '{DOMAIN_GW}=No', # Domains Gateway
     '{SERVER_EVENTS}=No' # Push Notifications
   ]
-  ps_home '/opt/oracle/psft/pt/ps_home8.55.05'
+  ps_home '/opt/oracle/psft/pt/ps_home8.56.04'
   ps_cfg_home '/home/psadm2'
   startup_settings [
     node['peopletools']['db_name'], # Database name
     'ORACLE', # Database type
+    'PSUNX', # Prcs server
     'opr_user_id', # OPR user ID
     'opr_user_password', # OPR user password
-    'KIT', # Domain ID
-    '_____', # Add to path
     'connect_id', # Connect ID
     'connect_password', # Connect password
     '_____', # Server name
+    '%PS_SERVDIR%/log_output', # Log/output directory
+    '%PS_HOME%/bin/sqr/%PS_DB%/bin', # SQRBIN
+    '_____', # Add to path
     'domain_connection_password', # Domain connection password
     'ENCRYPT' # (NO)ENCRYPT passwords
   ]
   sensitive true
-end
+end # rubocop:enable Metrics/BlockLength

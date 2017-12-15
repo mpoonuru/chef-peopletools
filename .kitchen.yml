@@ -12,31 +12,59 @@ platforms:
   - name: centos-7.2
 
 suites:
-  - name: app
+  - name: app855
     run_list:
-      - recipe[peopletools_test::app]
+      - recipe[peopletools_test::app855]
     attributes:
       peopletools:
-        archive_repo: <%= ENV['PEOPLETOOLS_ARCHIVE_REPO'] %>
+        archive_repo: <%= ENV['PT_855_ARCHIVE_REPO'] %>
         db_host: 'localhost'
         db_name: 'KITCHEN'
         ps_app_home:
-          archive_repo: <%= ENV['PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO'] %>
-  - name: prcs
+          archive_repo: <%= ENV['PS_APP_HOME_ARCHIVE_REPO'] %>
+  - name: app856
     run_list:
-      - recipe[peopletools_test::prcs]
+      - recipe[peopletools_test::app856]
     attributes:
       peopletools:
-        archive_repo: <%= ENV['PEOPLETOOLS_ARCHIVE_REPO'] %>
+        archive_repo: <%= ENV['PT_856_ARCHIVE_REPO'] %>
         db_host: 'localhost'
         db_name: 'KITCHEN'
         ps_app_home:
-          archive_repo: <%= ENV['PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO'] %>
-  - name: web
+          archive_repo: <%= ENV['PS_APP_HOME_ARCHIVE_REPO'] %>
+  - name: prcs855
     run_list:
-      - recipe[peopletools_test::web]
+      - recipe[peopletools_test::prcs855]
     attributes:
       peopletools:
-        archive_repo: <%= ENV['PEOPLETOOLS_ARCHIVE_REPO'] %>
+        archive_repo: <%= ENV['PT_855_ARCHIVE_REPO'] %>
+        db_host: 'localhost'
+        db_name: 'KITCHEN'
         ps_app_home:
-          archive_repo: <%= ENV['PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO'] %>
+          archive_repo: <%= ENV['PS_APP_HOME_ARCHIVE_REPO'] %>
+  - name: prcs856
+    run_list:
+      - recipe[peopletools_test::prcs856]
+    attributes:
+      peopletools:
+        archive_repo: <%= ENV['PT_856_ARCHIVE_REPO'] %>
+        db_host: 'localhost'
+        db_name: 'KITCHEN'
+        ps_app_home:
+          archive_repo: <%= ENV['PS_APP_HOME_ARCHIVE_REPO'] %>
+  - name: web855
+    run_list:
+      - recipe[peopletools_test::web855]
+    attributes:
+      peopletools:
+        archive_repo: <%= ENV['PT_855_ARCHIVE_REPO'] %>
+        ps_app_home:
+          archive_repo: <%= ENV['PS_APP_HOME_ARCHIVE_REPO'] %>
+  - name: web856
+    run_list:
+      - recipe[peopletools_test::web856]
+    attributes:
+      peopletools:
+        archive_repo: <%= ENV['PT_856_ARCHIVE_REPO'] %>
+        ps_app_home:
+          archive_repo: <%= ENV['PS_APP_HOME_ARCHIVE_REPO'] %>

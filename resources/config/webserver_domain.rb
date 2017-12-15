@@ -26,16 +26,16 @@ property :appserver_connection_password, String, default: ''
 property :authentication_token_domain, String, default: ''
 property :bea_home, String, default: '/opt/oracle/psft/pt/bea'
 property :domain_name, String, name_property: true
-property :domain_type, equal_to: %w(NEW_DOMAIN EXISTING_DOMAIN), default: 'NEW_DOMAIN'
+property :domain_type, equal_to: %w[NEW_DOMAIN EXISTING_DOMAIN], default: 'NEW_DOMAIN'
 property :domain_user, String, default: 'psadm2'
 property :http_port, Integer, default: 80
 property :https_port, Integer, default: 443
 property :igw_userid, String, default: 'administrator'
 property :igw_password, String, required: true
-property :install_action, equal_to: %w(CREATE_NEW_DOMAIN REDEPLOY_PSAPP REBUILD_DOMAIN ADD_SITE ADD_PSAPP_EXT), default: 'CREATE_NEW_DOMAIN'
-property :install_type, equal_to: %w(SINGLE_SERVER_INSTALLATION MULTI_SERVER_INSTALLATION), default: 'SINGLE_SERVER_INSTALLATION'
+property :install_action, equal_to: %w[CREATE_NEW_DOMAIN REDEPLOY_PSAPP REBUILD_DOMAIN ADD_SITE ADD_PSAPP_EXT], default: 'CREATE_NEW_DOMAIN'
+property :install_type, equal_to: %w[SINGLE_SERVER_INSTALLATION MULTI_SERVER_INSTALLATION], default: 'SINGLE_SERVER_INSTALLATION'
 property :jsl_port, Integer, default: 9000
-property :server_type, %w(weblogic websphere), default: 'weblogic'
+property :server_type, %w[weblogic websphere], default: 'weblogic'
 property :setup_path, String, default: lazy { ::File.join(ps_home, 'setup/PsMpPIAInstall/setup.sh') }
 property :ps_home, String, required: true
 property :ps_cfg_home, String, required: true
@@ -49,9 +49,9 @@ property :web_profile_password, String, required: true
 property :web_profile_userid, String, default: 'PTWEBSERVER'
 property :website_name, String, default: 'ps'
 
-action :create do
+action :create do # rubocop:disable Metrics/BlockLength
   # response file
-  template response_file_path do
+  template response_file_path do # rubocop:disable Metrics/BlockLength
     cookbook response_file_cookbook
     mode '0600'
     owner domain_user
@@ -84,6 +84,15 @@ action :create do
     )
     action :create
     not_if { ::File.exist?(::File.join(ps_cfg_home, 'webserv', domain_name)) }
+  end # rubocop:enable Metrics/BlockLength
+
+  # $ps_cfg_home/webserv directory
+  directory "#{ps_cfg_home}/webserv" do
+    owner domain_user
+    group 'root'
+    mode '0755'
+    action :create
+    recursive true
   end
 
   # create webserver domain
@@ -92,6 +101,16 @@ action :create do
     sensitive new_resource.sensitive
     only_if { ::File.file?(setup_path) }
     not_if { ::File.exist?(::File.join(ps_cfg_home, 'webserv', domain_name)) }
+    notifies :run, "ruby_block[chmod_R_#{::File.join(ps_cfg_home, 'webserv', domain_name)}]", :immediately
     notifies :delete, "template[#{response_file_path}]", :immediately
   end
-end
+
+  # weblogic domain directory permissions
+  ruby_block "chmod_R_#{::File.join(ps_cfg_home, 'webserv', domain_name)}" do
+    block do
+      FileUtils.chmod_R 0_755, ::File.join(ps_cfg_home, 'webserv', domain_name)
+    end
+    only_if { ::File.exist?(::File.join(ps_cfg_home, 'webserv', domain_name)) }
+    action :nothing
+  end
+end # rubocop:enable Metrics/BlockLength

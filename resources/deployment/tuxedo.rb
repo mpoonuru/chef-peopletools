@@ -23,14 +23,15 @@ property :archive_url, String, required: true
 property :deploy_location, String, default: '/opt/oracle/psft/pt/bea/tuxedo'
 property :deploy_user, String, default: 'psadm1'
 property :deploy_group, String, default: 'oinstall'
-property :home_name, String, default: 'OraTux1213Home'
+property :home_name, String, default: 'OraTuxHome'
 property :inventory_location, String, default: '/opt/oracle/psft/db/oraInventory'
 property :inventory_user, String, default: 'oracle'
 property :inventory_group, String, default: 'oinstall'
+property :jdk_location, String, required: lazy { Gem::Version(version) >= Gem::Version('12.2') }
 property :tlisten_password, String, required: true
 property :version, String, name_property: true
 
-action :deploy do
+action :deploy do # rubocop:disable Metrics/BlockLength
   # inventory
   peopletools_inventory inventory_location do
     inventory_location new_resource.inventory_location
@@ -54,7 +55,7 @@ action :deploy do
   # tuxedo directory permissions
   ruby_block "chmod_R_#{deploy_location}" do
     block do
-      FileUtils.chmod_R(0755, deploy_location)
+      FileUtils.chmod_R 0_755, deploy_location
     end
     only_if { ::File.directory?(deploy_location) }
     action :nothing
@@ -62,11 +63,17 @@ action :deploy do
 
   # execute tuxedo runInstaller
   execute 'tuxedo_runInstaller' do
-    command "su - #{deploy_user} -c \"#{::File.join(deploy_location, 'oui', 'bin', 'runInstaller')} " \
-            "-silent -clone -waitforcompletion -nowait -invPtrLoc #{inventory_location}/oraInst.loc " \
-            "ORACLE_HOME=#{deploy_location} ORACLE_HOME_NAME=#{home_name} TLISTEN_PASSWORD=#{tlisten_password}\""
+    if Gem::Version.new(version) >= Gem::Version.new('12.2')
+      command  "su - #{deploy_user} -c \"#{::File.join(deploy_location, 'oui', 'bin', 'runInstaller')} " \
+      "-silent -clone -waitforcompletion -nowait -jreLoc #{jdk_location} -invPtrLoc #{inventory_location}/oraInst.loc " \
+      "ORACLE_HOME=#{deploy_location} ORACLE_HOME_NAME=#{home_name} TLISTEN_PASSWORD=#{tlisten_password} -debug\""
+    else
+      command "su - #{deploy_user} -c \"#{::File.join(deploy_location, 'oui', 'bin', 'runInstaller')} " \
+      "-silent -clone -waitforcompletion -nowait -invPtrLoc #{inventory_location}/oraInst.loc " \
+      "ORACLE_HOME=#{deploy_location} ORACLE_HOME_NAME=#{home_name} TLISTEN_PASSWORD=#{tlisten_password}\""
+    end
     sensitive new_resource.sensitive
     only_if { ::File.file?(::File.join(deploy_location, 'oui', 'bin', 'runInstaller')) }
     action :nothing
   end
-end
+end # rubocop:enable Metrics/BlockLength
