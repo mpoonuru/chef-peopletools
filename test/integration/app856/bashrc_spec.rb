@@ -8,8 +8,8 @@ describe file('/home/psadm2/.bashrc') do
     'export COBDIR=/opt/microfocus/cobol',
     'export ORACLE_HOME=/opt/oracle/psft/pt/oracle-client/12\.1\.0\.2',
     'export TUXDIR=/opt/oracle/psft/pt/bea/tuxedo/tuxedo12\.2\.2\.0\.0',
-    'export PATH=/opt/oracle/psft/pt/ps_home8\.56\.04/appserv:/opt/oracle/psft/pt/ps_home8\.56\.04/setup:\$PATH',
-    'cd /opt/oracle/psft/pt/ps_home8\.56\.04 && \. psconfig\.sh',
+    'export PATH=/opt/oracle/psft/pt/ps_home8\.56\.10/appserv:/opt/oracle/psft/pt/ps_home8\.56\.10/setup:\$PATH',
+    'cd /opt/oracle/psft/pt/ps_home8\.56\.10 && \. psconfig\.sh',
     'export PS_CFG_HOME=/home/psadm2',
     'export PS_APP_HOME=/opt/oracle/psft/pt/ps_app_home'
   ].each do |c|

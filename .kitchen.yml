@@ -4,6 +4,11 @@ driver:
 
 provisioner:
   name: chef_zero
+  require_chef_omnibus: 13
+  attributes:
+    chef_client_updater:
+      post_install_action: 'exec'
+      version: '13'
 
 verifier:
   name: inspec

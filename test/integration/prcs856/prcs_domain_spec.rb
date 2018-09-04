@@ -18,13 +18,13 @@ describe file('/home/psadm2/appserv/prcs/KIT/psprcs.cfg') do
     'DBType=ORACLE',
     'PrcsServerName=PSUNX',
     'UserId=opr_user_id',
-    'UserPswd=jDXqb7hxyNrGCviAZ40ZjDdMhnh5upc2L5EOUCtI0W8=',
+    'UserPswd=\{V1\}',
     'ConnectId=connect_id',
-    'ConnectPswd=gCr2Xqhh2ffaDxbxxO0DUad7IjStsAweK0kJ/vnb',
+    'ConnectPswd=\{V1\}',
     'LogDir=%PS_SERVDIR%\\\log_output',
     'SQRBIN=%PS_HOME%/bin/sqr/%PS_DB%/bin',
     'Add to PATH=',
-    'DomainConnectionPwd=hyr1UaRs8stNYVB5aYZgVHCc0e0aeBEE7MGkDhHg'
+    'DomainConnectionPwd=\{V1\}'
   ].each do |c|
     its('content') { should match c }
   end

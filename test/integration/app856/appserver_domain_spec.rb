@@ -18,11 +18,11 @@ describe file('/home/psadm2/appserv/KIT/psappsrv.cfg') do
     'DBName=KITCHEN',
     'DBType=ORACLE',
     'UserId=opr_user_id',
-    'UserPswd=jDXqb7hxyNrGCviAZ40ZjDdMrl5D1K0KB0eqtWgtpBc=',
+    'UserPswd=\{V1\}',
     'Add to PATH=',
     'ConnectId=connect_id',
-    'ConnectPswd=gCr2Xqhh2ffaDxbxxO0DUad7IjStsAxfLiJ03FkO',
-    'DomainConnectionPwd=hyr1UaRs8stNYVB5aYZgVHCc0e0aeBEE7MGkDhHg'
+    'ConnectPswd=\{V1\}',
+    'DomainConnectionPwd=\{V1\}'
   ].each do |c|
     its('content') { should match c }
   end
