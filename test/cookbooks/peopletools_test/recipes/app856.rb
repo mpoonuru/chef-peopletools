@@ -33,19 +33,19 @@ peopletools_tnsnames '12.1.0.2' do
 end
 
 # ps_home
-peopletools_ps_home '8.56.04' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.04.tgz"
+peopletools_ps_home '8.56.10' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.10.tgz"
 end
 
 # jdk
-peopletools_jdk '1.8.0_144' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-jdk1.8.0_144.tgz"
+peopletools_jdk '1.8.0_181' do
+  archive_url "#{node['peopletools']['archive_repo']}/jdk-8u181-linux-x64.tar.gz"
 end
 
 # tuxedo
 peopletools_tuxedo '12.2.2.0.0' do
   archive_url "#{node['peopletools']['archive_repo']}/pt-tuxedo12.2.2.0.0.tgz"
-  jdk_location '/opt/oracle/psft/pt/jdk1.8.0_144'
+  jdk_location '/opt/oracle/psft/pt/jdk1.8.0_181'
   tlisten_password 'tlisten_password'
   sensitive true
 end
@@ -53,7 +53,7 @@ end
 # .bashrc
 peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
-  ps_home_version '8.56.04'
+  ps_home_version '8.56.10'
   tuxedo_version '12.2.2.0.0'
 end
 
@@ -77,7 +77,7 @@ peopletools_appserver_domain 'KIT' do # rubocop:disable Metrics/BlockLength
     '{DOMAIN_GW}=No', # Domains Gateway
     '{SERVER_EVENTS}=No' # Push Notifications
   ]
-  ps_home '/opt/oracle/psft/pt/ps_home8.56.04'
+  ps_home '/opt/oracle/psft/pt/ps_home8.56.10'
   ps_cfg_home '/home/psadm2'
   startup_settings [
     node['peopletools']['db_name'], # Database name

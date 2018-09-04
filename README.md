@@ -25,7 +25,7 @@ Usage
 Include `peopletools` as a dependency in your cookbook's `metadata.rb`.
 
 ```
-depends 'peopletools', '~> 2.3.7'
+depends 'peopletools', '~> 2.5.0'
 ```
 
 Copy the tgz archive files for Oracle Inventory, JDK, PS Home, Tuxedo, WebLogic, etc from the Oracle delivered DPK to a repository such as Artifactory.  Configure a `['peopletools']['archive_repo']` attribute to point to the repository location.  Use the resources to deploy and configure PeopleTools.
@@ -295,8 +295,8 @@ peopletools_tnsnames '12.1.0.2' do
 end
 
 # ps_home
-peopletools_ps_home '8.56.04' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.04.tgz"
+peopletools_ps_home '8.56.10' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.10.tgz"
 end
 
 # tuxedo
@@ -309,7 +309,7 @@ end
 # .bashrc
 peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
-  ps_home_version '8.56.04'
+  ps_home_version '8.56.10'
   tuxedo_version '12.2.2.0.0'
 end
 
@@ -334,7 +334,7 @@ peopletools_appserver_domain 'KIT' do
     '{DOMAIN_GW}=No', # Domains Gateway
     '{SERVER_EVENTS}=No' # Push Notifications
   ]
-  ps_home '/opt/oracle/psft/pt/ps_home8.56.04'
+  ps_home '/opt/oracle/psft/pt/ps_home8.56.10'
   ps_cfg_home '/home/psadm2'
   sensitive true
   startup_settings [
@@ -370,8 +370,8 @@ peopletools_tnsnames '12.1.0.2' do
 end
 
 # ps_home
-peopletools_ps_home '8.56.04' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.04.tgz"
+peopletools_ps_home '8.56.10' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.10.tgz"
 end
 
 # tuxedo
@@ -384,7 +384,7 @@ end
 # .bashrc
 peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
-  ps_home_version '8.56.04'
+  ps_home_version '8.56.10'
   tuxedo_version '12.2.2.0.0'
 end
 
@@ -400,7 +400,7 @@ peopletools_prcs_domain 'KIT' do
     '{DOMAIN_GW}=No', # Domains Gateway
     '{SERVER_EVENTS}=No' # Push Notifications
   ]
-  ps_home '/opt/oracle/psft/pt/ps_home8.56.04'
+  ps_home '/opt/oracle/psft/pt/ps_home8.56.10'
   ps_cfg_home '/home/psadm2'
   sensitive true
   startup_settings [
@@ -427,25 +427,25 @@ end
 include_recipe "#{cookbook_name}::_common"
 
 # ps_home
-peopletools_ps_home '8.56.04' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.04.tgz"
+peopletools_ps_home '8.56.10' do
+  archive_url "#{node['peopletools']['archive_repo']}/pt-pshome8.56.10.tgz"
 end
 
 # jdk
-peopletools_jdk '1.8.0_144' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-jdk1.8.0_144.tgz"
+peopletools_jdk '1.8.0_181' do
+  archive_url "#{node['peopletools']['archive_repo']}/jdk-8u181-linux-x64.tar.gz"
 end
 
 # weblogic
 peopletools_weblogic '12.2.1' do
-  archive_url "#{node['peopletools']['archive_repo']}/pt-weblogic12.2.1.tgz"
-  jdk_version '1.8.0_144'
+  archive_url "#{node['peopletools']['archive_repo']}/pt-weblogic12.2.1.3.0.tgz"
+  jdk_version '1.8.0_181'
 end
 
 # .bashrc
 peopletools_bashrc 'psadm2' do
   oracle_client_version '12.1.0.2'
-  ps_home_version '8.56.04'
+  ps_home_version '8.56.10'
   tuxedo_version '12.2.2.0.0'
 end
 
@@ -454,7 +454,7 @@ peopletools_webserver_domain 'KIT' do
   admin_password 'admin_password'
   appserver_name 'localhost'
   igw_password 'igw_password'
-  ps_home '/opt/oracle/psft/pt/ps_home8.56.04'
+  ps_home '/opt/oracle/psft/pt/ps_home8.56.10'
   ps_cfg_home '/home/psadm2'
   sensitive true
   web_profile_password 'web_profile_password'
@@ -598,7 +598,7 @@ Testing
 .kitchen.yml is configured to use vagrant with centos-7.2.  Two environment variables must be configured to set the `['peopletools']['archive_repo']` and `['peopletools']['ps_app_home']['archive_repo']` attribute values.  These should be set to the location of the repositories which hold the archive files for PeopleTools and ps_app_home.  They can be different locations if required, and should not contain a trailing forward slash.  E.g.
 
 ```
-PEOPLETOOLS_ARCHIVE_REPO=http://artifacts.local.org/artifactory/software/oracle/peoplesoft/peopletools/8.56.04
+PEOPLETOOLS_ARCHIVE_REPO=http://artifacts.local.org/artifactory/software/oracle/peoplesoft/peopletools/8.56.10
 PEOPLETOOLS_PS_APP_HOME_ARCHIVE_REPO=http://artifacts.local.org/artifactory/software/oracle/peoplesoft/finance/9.2.017
 ```
 

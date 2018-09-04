@@ -78,12 +78,20 @@ action :deploy do # rubocop:disable Metrics/BlockLength
 
   # execute weblogic pasteBinary
   execute 'weblogic_pasteBinary' do
-    command "export T2P_JAVA_OPTIONS=\"-d64 -Djava.io.tmpdir=#{tmp_dir}\" && " \
-    "su - #{deploy_user} -c \"#{tmp_dir}/pasteBinary.sh " \
-    "-javaHome #{jdk_location} -archiveLoc #{tmp_dir}/pt-weblogic-copy.jar " \
-    "-targetMWHomeLoc #{deploy_location} -targetOracleHomeName #{home_name} " \
-    "-invPtrLoc #{inventory_location}/oraInst.loc -executeSysPrereqs false " \
-    "-silent true -logDirLoc #{tmp_dir}\""
+    if Gem::Version.new(version) >= Gem::Version.new('12.2.1.3.0')
+      command "export T2P_JAVA_OPTIONS=\"-d64 -Djava.io.tmpdir=#{tmp_dir}\" && " \
+      "su - #{deploy_user} -c \"#{jdk_location}/bin/java -jar  #{tmp_dir}/pt-weblogic-copy.jar " \
+      "-javaHome #{jdk_location} " \
+      "-targetOracleHomeLoc #{deploy_location} -targetOracleHomeName #{home_name} " \
+      "-invPtrLoc #{inventory_location}/oraInst.loc -executeSysPrereqs false -silent true\""
+    else
+      command "export T2P_JAVA_OPTIONS=\"-d64 -Djava.io.tmpdir=#{tmp_dir}\" && " \
+      "su - #{deploy_user} -c \"#{tmp_dir}/pasteBinary.sh " \
+      "-javaHome #{jdk_location} -archiveLoc #{tmp_dir}/pt-weblogic-copy.jar " \
+      "-targetMWHomeLoc #{deploy_location} -targetOracleHomeName #{home_name} " \
+      "-invPtrLoc #{inventory_location}/oraInst.loc -executeSysPrereqs false " \
+      "-silent true -logDirLoc #{tmp_dir}\""
+    end
     only_if { ::File.file?(::File.join(tmp_dir, 'pasteBinary.sh')) }
     action :nothing
   end

@@ -5,7 +5,7 @@ license 'Apache-2.0'
 description 'Provides resources to install and configure an Oracle PeopleTools stack'
 chef_version '>= 12.19'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '2.4.0'
+version '2.5.0'
 source_url 'https://github.com/universityofderby/chef-peopletools'
 issues_url 'https://github.com/universityofderby/chef-peopletools/issues'
 
